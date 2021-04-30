@@ -1,0 +1,13 @@
+<view class="base-dialog" wx:if="{{isShow}}">
+  <view class="dialog-mask" bindtap="closeDialog"></view>
+  <view class="dialog-body" animation="{{tranAnimation}}">
+    <view class="header">请输入您的内容</view>
+    <view class="content">
+      <input class="input ff-num" type="number" value="{{initialValue.count}}" focus bindfocus="focusHandle" bindblur="blurHandle" bindinput="keyInputHandle" />
+    </view>
+    <view class="actions">
+      <view class="action-item cancel" bindtap="closeDialog">取消</view>
+      <view class="action-item confirm" bindtap="confirmHandle">确定</view>
+    </view>
+  </view>
+</view>

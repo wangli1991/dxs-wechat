@@ -1,0 +1,26 @@
+<view class="edit-dialog" wx:if="{{isShow}}">
+  <view class="dialog-mask" bindtap="closeDialog"></view>
+  <view class="dialog-body">
+    <view class="header">
+      <view class="text">修改提交人信息</view>
+      <view class="close" bindtap="closeDialog">
+        <view class="iconfont icon-close"></view>
+      </view>
+    </view>
+    <view class="content">
+      <view class="item">
+        <view class="title">提货人：</view>
+        <view class="input">
+          <input class="input" value="{{initialValue.name}}" focus bindinput="nameInputHandle" placeholder="请输入提货人姓名" />
+        </view>
+      </view>
+      <view class="item">
+        <view class="title">手机号：</view>
+        <view class="input">
+          <input class="input" type="number" maxlength="11" value="{{initialValue.tel}}" bindinput="telInputHandle" placeholder="请输入提货人手机号" />
+        </view>
+      </view>
+    </view>
+    <view class="actions" bindtap="confirmHandle">保存</view>
+  </view>
+</view>

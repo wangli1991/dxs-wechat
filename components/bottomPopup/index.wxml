@@ -1,0 +1,14 @@
+<view class="bottom-popup" wx:if="{{isShow}}">
+  <view class="popup-mask" animation="{{opaAnimation}}" bindtap="closePopup"></view>
+  <view class="popup-body" animation="{{tranAnimation}}">
+    <view class="popup-header">
+      <view class="popup-title">{{title}}</view>
+      <view class="popup-close" bindtap="closePopup">
+        <text class="iconfont icon-close"></text>
+      </view>
+    </view>
+    <view class="popup-content">
+      <slot />
+    </view>
+  </view>
+</view>

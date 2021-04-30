@@ -1,0 +1,75 @@
+.edit-dialog {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99;
+}
+.edit-dialog .dialog-mask {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+.edit-dialog .dialog-body {
+  width: 80%;
+  padding: 20rpx 30rpx 30rpx;
+  background-color: #fff;
+  position: absolute;
+  left: 10%;
+  top: 20%;
+  z-index: 9;
+  border-radius: 10rpx;
+}
+.edit-dialog .dialog-body .header {
+  position: relative;
+}
+.edit-dialog .dialog-body .header .text {
+  font-size: 30rpx;
+  line-height: 60rpx;
+  color: #333;
+  text-align: center;
+}
+.edit-dialog .dialog-body .header .close {
+  width: 30rpx;
+  height: 30rpx;
+  position: absolute;
+  right: 0;
+  top: 15rpx;
+  z-index: 1;
+}
+.edit-dialog .dialog-body .header .iconfont {
+  font-size: 30rpx;
+}
+.edit-dialog .dialog-body .content {
+  margin-top: 10rpx;
+}
+.edit-dialog .dialog-body .content .item {
+  display: flex;
+  border-bottom: 2rpx solid #ebebeb;
+}
+.edit-dialog .dialog-body .content .title {
+  font-size: 30rpx;
+  line-height: 80rpx;
+  color: #333;
+}
+.edit-dialog .dialog-body .content .input {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333;
+  height: 80rpx;
+}
+.edit-dialog .dialog-body .actions {
+  width: 100%;
+  text-align: center;
+  font-size: 30rpx;
+  line-height: 80rpx;
+  background: #07c160;
+  border-radius: 10rpx;
+  margin-top: 40rpx;
+  color: #fff;
+}

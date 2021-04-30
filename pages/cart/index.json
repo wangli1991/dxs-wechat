@@ -1,0 +1,4 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {"base-dialog":"../../components/baseDialog"}
+}

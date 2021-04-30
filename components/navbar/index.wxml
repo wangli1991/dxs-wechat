@@ -1,0 +1,6 @@
+<view class="navbar custom-class" style='height:{{navHeight}}px;background-color:{{bgColor}}'>
+  <view wx:if="{{showNav}}" class="navbar-action-wrap" style='top:{{navTop}}px;height:{{titleHeight}}px'>
+    <view class="iconfont icon-back"></view>
+  </view>
+  <view class='navbar-title' style='top:{{navTop}}px;height:{{titleHeight}}px'>{{pageName}}</view>
+</view>

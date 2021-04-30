@@ -1,0 +1,105 @@
+<navbar pageName="确认订单" showNav />
+<view class="container">
+  <scroll-view class="place-scroll" scroll-y="true" scroll-with-animation="true">
+    <view class="place-container">
+      <view class="place-item place-info">
+        <view class="item info-user">
+          <view class="flex-box">
+            <view class="title">提货人：</view>
+            <view class="value">{{orderUser.name}} {{orderUser.tel}}</view>
+            <view class="action" bindtap="editUserHandle">
+              <text class="text">修改</text>
+              <text class="iconfont icon-dir-right"></text>
+            </view>
+          </view>
+        </view>
+        <view class="item">
+          <view class="flex-box">
+            <view class="title">提货点：</view>
+            <view class="value">明新超市</view>
+            <view class="action">
+              <text class="text">修改</text>
+              <text class="iconfont icon-dir-right"></text>
+            </view>
+          </view>
+          <view class="desc">吉林省长春市南关区金宇大路1888号 漫画林啊啊啊啊漫画林啊啊啊啊漫画林啊啊啊啊漫画林啊啊啊啊漫画林啊啊啊啊</view>
+          <view class="see">
+            <text class="text">查看地图</text>
+            <text class="iconfont icon-dir-right"></text>
+          </view>
+        </view>
+      </view>
+      <view class="place-tips">购物中如有问题，可联系团长，保证售后无忧</view>
+      <view class="place-item place-product">
+        <view class="product-header flex-box">
+          <text class="text">2021-01-01 16:00 可提货</text>
+          <text class="num">共{{count}}种</text>
+        </view>
+        <view class="product-container">
+          <view class="item" wx:for="{{list}}" wx:key="index">
+            <view class="img-container">
+              <image class="img" src="../../images/cart_active.png" mode="aspectFit" lazy-load="true" />
+            </view>
+            <view class="content">
+              <view class="header">{{item.name}}</view>
+              <view class="footer">
+                <view class="price">
+                  <view class="now">
+                    <view class="unit ff-num">￥</view>
+                    <view class="text ff-num">{{item.product_sales_price}}</view>
+                  </view>
+                  <view class="old ff-num app-line-through">￥{{item.product_market_price}}</view>
+                </view>
+                <view class="num">共{{item.count}}件</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="place-item place-price">
+        <view class="item flex-box">
+          <view class="title">商品总额</view>
+          <view class="price">
+            <view class="unit">￥</view>
+            <view class="text ff-num">{{totalPrice}}</view>
+          </view>
+        </view>
+        <view class="item flex-box">
+          <view class="title">商品优惠</view>
+          <view class="price save">
+            <view class="unit">-￥</view>
+            <view class="text ff-num">{{savePrice}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="place-item place-coupon flex-box">
+        <view class="title">优惠券</view>
+        <view class="action active">
+          <text class="text">修改</text>
+          <view class="price">
+            <view class="unit">￥</view>
+            <view class="num ff-num">100</view>
+          </view>
+          <text class="iconfont icon-dir-right"></text>
+        </view>
+      </view>
+      <view class="place-item place-remarks flex-box">
+        <view class="title">备注：</view>
+        <view class="remarks">
+          <textarea class="text" placeholder="如有特殊需求请告诉我们" confirm-type="done" auto-height disable-default-padding></textarea>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+<view class="place-footer flex-box">
+  <view class="text">
+    <view class="title">待支付：</view>
+    <view class="price">
+      <text class="unit">￥</text>
+      <text class="num ff-num">{{payPrice}}</text>
+    </view>
+  </view>
+  <view class="btn">立即支付</view>
+</view>
+<edit-dialog show="{{showEditDialog}}" initial-value="{{initialValues}}" bind:close="closeDialogHandle" bind:confirm="editConfirmHandle" />

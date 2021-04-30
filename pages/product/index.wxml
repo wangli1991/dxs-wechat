@@ -1,0 +1,233 @@
+<!-- pages/product/index.wxml -->
+<view class="navbar product-navbar" style="height:{{navHeight}}px;background:rgba(255,255,255,{{navbarOpacity}});">
+  <view class="navbar-container" style="top:{{navTop}}px;height:{{menuButtonHeight}}px">
+    <view class="navbar-back app-marl20 app-fz38" style="width:{{menuButtonHeight}}px;height:{{menuButtonHeight}}px;" bindtap="back">
+      <text class="iconfont icon-back"></text>
+    </view>
+    <view class="navbar-tab app-padlr20" style="height:{{menuButtonHeight}}px;line-height:{{menuButtonHeight}}px;opacity:{{navbarOpacity}}">
+      <block wx:for="{{tabList}}" wx:key="index">
+        <view class="tab-item app-fz26 {{index==currrentTab?'active':''}}" data-index="{{index}}" bindtap="tabTap">
+          {{item}}
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+<view class="container">
+  <scroll-view class="product-scroll" scroll-y="true" scroll-with-animation="true" scroll-top="{{scrollTop}}" bindscroll="scrollHandle" bindscrolltoupper="scrollToToupper" bindscrolltolower="scrollToLower">
+    <view class="product-container">
+      <view class="carousel-container">
+        <swiper class="carousel-swiper" bindchange="carouselChange">
+          <block wx:for="{{carouselList}}" wx:key="index">
+            <swiper-item>
+              <view class="carousel-item">{{item.id}}</view>
+            </swiper-item>
+          </block>
+        </swiper>
+        <view class="carousel-nums">{{currentCarousel}}/{{carouselCount}}</view>
+      </view>
+      <view class="price-container">
+        <view class="price-num">
+          <view class="num-top">
+            <text class="title">秒杀价</text>
+            <text class="unit">￥</text>
+            <text class="num">{{product.sales_price}}</text>
+          </view>
+          <view class="num-bottom">
+            <text>参考价格</text>
+            <text class="app-line-through">￥{{product.market_price}}</text>
+            <text class="line">|</text>
+            <text>限购5件</text>
+          </view>
+        </view>
+        <view class="price-time">
+          <view class="title">距离活动结束</view>
+          <view class="time">
+            <block>
+              <text class="text">11</text>
+              <text class="dot">:</text>
+              <text class="text">11</text>
+              <text class="dot">:</text>
+              <text class="text">11</text>
+            </block>
+          </view>
+        </view>
+      </view>
+      <view class="content-container">
+        <view class="product-title bcbr">
+          <view class="head">
+            <view class="title">
+              {{product.brand}} {{product.name}} {{product.specs}}/{{product.unit}}
+            </view>
+            <view class="desc">{{product.description}}</view>
+          </view>
+          <view class="remark">{{product.remarks}}</view>
+        </view>
+        <view class="product-tips bcbr">
+          <view class="tips-item" bindtap="showTipsHandle">
+            <view class="title">买货无忧</view>
+            <view class="content">
+              <view class="text">
+                <text>平台报价</text>
+                <text class="dot"></text>
+                <text>48小时质量无忧</text>
+                <text class="dot"></text>
+                <text>极速退款</text>
+              </view>
+              <view class="iconfont icon-dir-right"></view>
+            </view>
+          </view>
+          <view class="tips-item">
+            <view class="title">提货信息</view>
+            <view class="content">
+              <view class="info">
+                <view class="info-cell">
+                  现在下单，
+                  <text class="time">明天16:00可提货</text>
+                </view>
+                <view class="info-cell">提货点：明新超市（吉林省长春市南关区）</view>
+              </view>
+              <view class="iconfont icon-dir-right"></view>
+            </view>
+          </view>
+        </view>
+        <view class="product-info bcbr">
+          <view class="info-title">商品信息</view>
+          <view class="info-content">
+            <view class="item" wx:if="{{product.brand}}">
+              <text class="title">品牌</text>
+              <text class="text">{{product.brand}}</text>
+            </view>
+            <view class="item" wx:if="{{product.specs}}">
+              <text class="title">规格</text>
+              <text class="text">{{product.specs}}/{{product.unit}}</text>
+            </view>
+            <view class="item" wx:if="{{product.origin_place}}">
+              <text class="title">产地</text>
+              <text class="text">{{product.origin_place}}</text>
+            </view>
+            <view class="item" wx:if="{{product.quality_period}}">
+              <text class="title">保质期</text>
+              <text class="text">{{product.quality_period}}</text>
+            </view>
+            <view class="item" wx:if="{{product.storage_conditions}}">
+              <text class="title">存储条件</text>
+              <text class="text">{{product.storage_conditions_text}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="info-img-container">
+        <image class="img" src="../../images/home_active.png" />
+        <view class="tips">生鲜类商品无质量问题不支持无理由退换</view>
+      </view>
+      <view class="product-guide bcbr">
+        <view class="guide-header">购物指南</view>
+        <view class="guide-content">
+          <view class="guide-item">
+            <view class="title">在线下单</view>
+            <view class="text">每天可购买商品时间：以所在城市营业时间为准</view>
+          </view>
+          <view class="guide-item">
+            <view class="title">物流配送</view>
+            <view class="text">物流会按照您所购买商品的配送时间，配送到您购买时选择的自提门店物流会按照您所购买商品的配送时间，配送到您购买时选择的自提门店</view>
+          </view>
+        </view>
+        <view class="guide-explain">
+          <view class="explain-container" hidden="{{showExplain}}">
+            <view class="title">价格说明</view>
+            <view class="content">
+              <view class="text">
+                1.划线价格：指平台内经营者建议参考价，是平台内经营者参考线上商城、超市、门市价提供的价格，并非《禁止价格欺诈行为的规定》等法律法规中所指的“原价”，仅供您购买时参考。
+              </view>
+              <view class="text">
+                2.未划线价格：指商品在平台上的实时销售价格，您将据此决定是否购买。改价格可能会因出促销活动、使用优惠券等发生变化，最终以结算页面价格为准。
+              </view>
+            </view>
+          </view>
+          <view class="guide-pick" bindtap="showExplain">
+            <text>点击查看商品价格说明</text>
+            <text class="iconfont {{showExplain?'icon-dir-down':'icon-dir-up'}}"></text>
+          </view>
+        </view>
+      </view>
+      <view class="product-recommend">
+        <view class="recommend-title">商品推荐</view>
+        <view class="recommend-container">
+          <block wx:for="{{recomandList}}" wx:key="index">
+            <view class="recommend-item">
+              <view class="img-container">
+                <image class="img" src="../../images/cart_active.png" mode="aspectFit" lazy-load="true" />
+              </view>
+              <view class="content">
+                <view class="header app-fz30">
+                  <view class="title">{{product.name}}</view>
+                  <view class="tag discount">
+                    {{product.full_reduction_count}}件{{product.full_reduction_cost}}元
+                  </view>
+                </view>
+                <view class="footer">
+                  <view class="tag">{{product.discount}}折优惠</view>
+                  <view class="buy">
+                    <view class="buy-price">
+                      <view class="now app-fz30">
+                        <view class="unit ff-num app-fz22">￥</view>
+                        <view class="ff-num">{{product.sales_price}}</view>
+                      </view>
+                      <view class="old ff-num app-fz20 app-line-through">
+                        ￥{{product.market_price}}
+                      </view>
+                    </view>
+                    <view class="buy-cart">
+                      <text class="iconfont icon-add-cart"></text>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </block>
+        </view>
+      </view>
+      <view class="share-container">
+        <text class="iconfont icon-share"></text>
+        <text class="text app-fz22">分享</text>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+<view class="product-footer">
+  <view class="actions">
+    <view class="item">
+      <view class="iconfont icon-home"></view>
+      <view class="text">首页</view>
+    </view>
+    <view class="item">
+      <view class="iconfont icon-cart">
+        <view class="dot">2</view>
+      </view>
+      <view class="text">购物车</view>
+    </view>
+  </view>
+  <view class="btns">
+    <view class="item btn-cart">加入购物车</view>
+    <view class="item btn-place">立即购买</view>
+  </view>
+</view>
+<bottom-popup show="{{showTips}}" bind:close="closePopupHandle">
+  <view class="tips-dialog">
+    <view class="tips-dialog-content">
+      <view class="item">
+        <view class="title">在线下单</view>
+        <view class="text">每天可购买商品时间：以所在城市营业时间为准</view>
+      </view>
+    </view>
+    <view class="tips-dialog-remark">
+      <view class="iconfont icon-tanhao"></view>
+      <view class="text">该商品不支持“无理由退换货”</view>
+    </view>
+  </view>
+</bottom-popup>
+<view class="back-top" bindtap="scrollBackTop" wx:if="{{showBackTop}}">
+  <view class="iconfont icon-backtop"></view>
+  <view class="text">顶部</view>
+</view>
