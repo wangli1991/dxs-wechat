@@ -3,11 +3,12 @@
   position: fixed;
   left: 0;
   top: 0;
+  bottom: 0;
   right: 0;
   z-index: 99;
 }
 .base-dialog .dialog-mask {
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   right: 0;
@@ -16,12 +17,12 @@
   z-index: 1;
 }
 .base-dialog .dialog-body {
-  width: 80%;
   padding: 30rpx 30rpx 10rpx;
   background-color: #fff;
   position: absolute;
   left: 10%;
   top: 50%;
+  right: 10%;
   z-index: 9;
   border-radius: 10rpx;
   transform: translateY(-50%);

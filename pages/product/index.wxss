@@ -192,7 +192,7 @@
   color: #f00;
   font-size: 26rpx;
   line-height: 70rpx;
-  border-top: 1px solid #ddd;
+  border-top: 2rpx solid #ddd;
 }
 .content-container .product-tips {
   padding: 20rpx 15rpx;
@@ -348,8 +348,9 @@
 .product-guide .guide-pick .iconfont {
   font-size: 24rpx;
 }
+
 .product-recommend {
-  padding: 0 20rpx;
+  padding: 0 22rpx;
 }
 .product-recommend .recommend-title {
   font-size: 30rpx;
@@ -364,11 +365,11 @@
   flex-wrap: wrap;
 }
 .recommend-container .recommend-item {
-  width: calc(50% - 6rpx);
+  width: calc(50% - 8rpx);
   background-color: #fff;
-  border-radius: 20rpx;
-  margin-bottom: 12rpx;
+  margin-bottom: 16rpx;
   overflow: hidden;
+  padding: 0 20rpx;
 }
 .recommend-container .img-container {
   width: 100%;
@@ -379,7 +380,7 @@
 }
 .recommend-container .content {
   border-bottom: 1rpx solid #f5f5f5;
-  padding: 5rpx 15rpx 15rpx;
+  padding: 5rpx 0 15rpx;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -429,6 +430,20 @@
 }
 .recommend-container .buy-cart .iconfont {
   font-size: 32rpx;
+}
+.recommend-container .more {
+  height: 80rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.recommend-container .more .title {
+  font-size: 28rpx;
+  color: #333;
+}
+.recommend-container .more .action {
+  font-size: 30rpx;
+  color: #07c160;
 }
 
 .share-container {
@@ -493,7 +508,7 @@
   right: 0;
   z-index: 9;
   background-color: #fff;
-  border-top: 1px solid #ebebeb;
+  border-top: 2rpx solid #ebebeb;
   overflow: hidden;
   display: flex;
   align-items: center;

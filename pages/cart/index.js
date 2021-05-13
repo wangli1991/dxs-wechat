@@ -2,9 +2,9 @@
  * @Author: WangLi
  * @Date: 2021-04-22 06:51:42
  * @LastEditors: WangLi
- * @LastEditTime: 2021-04-30 10:37:33
+ * @LastEditTime: 2021-05-09 06:40:42
  */
-// pages/cart/index.js
+import config from "../../config/index";
 import { getCartList, updateCart, deleteCart } from "../../http/api";
 import { mathRound, toast, modal } from "../../utils/util";
 const App = getApp();
@@ -29,20 +29,13 @@ Page({
     showNum: false,
     editCart: false,
     tabBarEle: null,
+    cartEmpty: config.cartEmpty,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      navHeight: App.globalData.navHeight,
-      navTop: App.globalData.navTop,
-      navRight: App.globalData.navRight,
-      menuButtonHeight: App.globalData.menuButtonHeight,
-    });
-  },
-  onShow: function () {
     //设置tabbar
     if (typeof this.getTabBar === "function" && this.getTabBar()) {
       this.setData({
@@ -52,6 +45,14 @@ Page({
         selected: 2,
       });
     }
+    this.setData({
+      navHeight: App.globalData.navHeight,
+      navTop: App.globalData.navTop,
+      navRight: App.globalData.navRight,
+      menuButtonHeight: App.globalData.menuButtonHeight,
+    });
+  },
+  onShow: function () {
     this.getCartList();
   },
   getCartList: async function (params) {
@@ -95,18 +96,28 @@ Page({
       showAll: !this.data.showAll,
     });
   },
+  inputChange: function (e) {
+    const index = e.currentTarget.dataset.index;
+  },
   cartNumHandle: function (e) {
-    const { salesList } = this.data;
+    const { salesList, tabBarEle } = this.data;
     const index = e.currentTarget.dataset.index;
     const salesData = salesList[index];
     this.setData({
       showNum: true,
       selectedValues: { id: salesData.id, count: salesData.count },
     });
+    tabBarEle.setData({
+      show: false,
+    });
   },
   closeDialogHandle: function (e) {
+    const { tabBarEle } = this.data;
     this.setData({
       showNum: false,
+    });
+    tabBarEle.setData({
+      show: true,
     });
   },
   numConfirmHandle: async function (e) {

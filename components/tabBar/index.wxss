@@ -3,13 +3,26 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 48px;
   background: white;
   display: flex;
   padding-bottom: env(safe-area-inset-bottom);
-  z-index: -1;
+  z-index: 9;
+  --tabbar-height: 52px;
+  --tabbar-item-font-size: 11px;
+  --tabbar-item-margin-bottom: 5px;
+  --tabbar-item-line-height: 0;
+  --info-font-size: 10px;
+  --info-size: 14px;
+  --info-padding: 0;
+}
+.van-info {
+  top: 3px;
+  right: 3px;
 }
 
+.tab-bar .text {
+  line-height: 1;
+}
 .tab-bar-border {
   background-color: rgba(0, 0, 0, 0.33);
   position: absolute;
@@ -30,29 +43,8 @@
   position: relative;
 }
 
-.tab-bar-item cover-image {
-  width: 27px;
-  height: 27px;
-}
-
-.tab-bar-item cover-view {
-  font-size: 10px;
-}
-
-.tab-bar-item .dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background-color: #f00;
-  position: absolute;
-  top: 5px;
-  left: 50%;
-  color: #fff;
-  font-size: 10px;
-  text-align: center;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  line-height: 14px;
-  z-index: 9;
+.tab-bar-item .img {
+  width: 20px;
+  height: 20px;
+  line-height: 0;
 }

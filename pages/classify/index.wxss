@@ -186,7 +186,7 @@ page {
   height: 240rpx;
   flex: 1;
   margin-left: 15rpx;
-  border-top: 1rpx solid #ebebeb;
+  border-top: 2rpx solid #ebebeb;
   padding: 20rpx 0;
   display: flex;
   flex-direction: column;

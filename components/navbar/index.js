@@ -2,9 +2,8 @@
  * @Author: WangLi
  * @Date: 2021-04-07 20:35:36
  * @LastEditors: WangLi
- * @LastEditTime: 2021-04-29 15:51:20
+ * @LastEditTime: 2021-05-06 15:02:34
  */
-// components/navbar/index.js
 const App = getApp();
 
 Component({
@@ -18,11 +17,15 @@ Component({
     pageName: String,
     showNav: {
       type: Boolean,
-      value: true,
+      value: false,
     },
     showHome: {
       type: Boolean,
       value: true,
+    },
+    bgColor: {
+      type: String,
+      value: "#f4f5fa",
     },
   },
 

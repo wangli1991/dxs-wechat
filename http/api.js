@@ -2,7 +2,7 @@
  * @Author: WangLi
  * @Date: 2021-04-12 14:06:37
  * @LastEditors: WangLi
- * @LastEditTime: 2021-04-30 08:22:43
+ * @LastEditTime: 2021-05-13 04:41:23
  */
 import request from "./request";
 
@@ -25,7 +25,7 @@ export const getProductById = (params) =>
   request.post("/product/productById", params);
 
 //购物车添加
-export const addCart = (params) => request.post("/cart/add", params);
+export const creatCart = (params) => request.post("/cart/creat", params);
 
 //购物车更新
 export const updateCart = (params) => request.post("/cart/update", params);
@@ -42,3 +42,13 @@ export const getCartCount = (params) => request.post("/cart/count", params);
 //查询下单数据
 export const getPlaceList = (params) =>
   request.post("/order/placeList", params);
+
+//商品下单
+export const creatOrder = (params) => request.post("/order/creat", params);
+
+//查询商品订单列表数据
+export const getOrderList = (params) => request.post("/order/list", params);
+
+//查询默认收货人信息
+export const getReceiverInfo = (uid) =>
+  request.get("/user/receiver/info", { userId: uid });

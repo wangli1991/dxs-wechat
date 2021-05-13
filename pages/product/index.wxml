@@ -155,33 +155,47 @@
         <view class="recommend-title">商品推荐</view>
         <view class="recommend-container">
           <block wx:for="{{recomandList}}" wx:key="index">
-            <view class="recommend-item">
+            <view class="base-card recommend-item">
               <view class="img-container">
                 <image class="img" src="../../images/cart_active.png" mode="aspectFit" lazy-load="true" />
               </view>
               <view class="content">
                 <view class="header app-fz30">
-                  <view class="title">{{product.name}}</view>
+                  <view class="title">{{item.name}}</view>
                   <view class="tag discount">
-                    {{product.full_reduction_count}}件{{product.full_reduction_cost}}元
+                    <text class="ff-num">{{item.full_reduction_count}}</text>
+                    <text>件</text>
+                    <text class="ff-num">{{item.full_reduction_cost}}</text>
+                    <text>元</text>
                   </view>
                 </view>
                 <view class="footer">
-                  <view class="tag">{{product.discount}}折优惠</view>
+                  <view class="tag">
+                    <text class="ff-num">{{item.discount}}</text>
+                    <text>折优惠</text>
+                  </view>
                   <view class="buy">
                     <view class="buy-price">
                       <view class="now app-fz30">
-                        <view class="unit ff-num app-fz22">￥</view>
-                        <view class="ff-num">{{product.sales_price}}</view>
+                        <text class="unit ff-num app-fz22">￥</text>
+                        <text class="ff-num">{{item.sales_price}}</text>
                       </view>
                       <view class="old ff-num app-fz20 app-line-through">
-                        ￥{{product.market_price}}
+                        <text>￥</text>
+                        <text class="ff-num">{{item.market_price}}</text>
                       </view>
                     </view>
                     <view class="buy-cart">
                       <text class="iconfont icon-add-cart"></text>
                     </view>
                   </view>
+                </view>
+              </view>
+              <view class="more">
+                <view class="title">新鲜蔬菜专区</view>
+                <view class="action">
+                  <text class="text">逛逛</text>
+                  <text class="iconfont icon-dir-right"></text>
                 </view>
               </view>
             </view>

@@ -1,0 +1,12 @@
+<view class="page-container">
+  <view class="content">
+    <view class="item" hidden="{{active!==0}}"></view>
+    <view class="item" hidden="{{active!==1}}"></view>
+    <view class="item" hidden="{{active!==2}}"></view>
+    <view class="item" hidden="{{active!==3}}"></view>
+    <van-button type="primary">主要按钮</van-button>
+  </view>
+  <view class="footer">
+    <tab-bar />
+  </view>
+</view>

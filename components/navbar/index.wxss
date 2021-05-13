@@ -1,5 +1,3 @@
-/* components/navbar/index.wxss */
-
 .navbar {
   width: 100%;
   overflow: hidden;

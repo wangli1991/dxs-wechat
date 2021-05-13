@@ -1,0 +1,17 @@
+.page-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.page-container .content {
+  flex: 1;
+}
+.my-button {
+  --button-border-radius: 10px;
+  --button-default-color: #f00;
+  --tabbar-item-margin-bottom: 0;
+}
+.van-button--primary {
+  font-size: 20px;
+  background-color: pink;
+}

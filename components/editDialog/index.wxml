@@ -17,7 +17,7 @@
       <view class="item">
         <view class="title">手机号：</view>
         <view class="input">
-          <input class="input" type="number" maxlength="11" value="{{initialValue.tel}}" bindinput="telInputHandle" placeholder="请输入提货人手机号" />
+          <input class="input" type="number" maxlength="11" value="{{initialValue.phone}}" bindinput="telInputHandle" placeholder="请输入提货人手机号" />
         </view>
       </view>
     </view>

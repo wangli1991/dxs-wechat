@@ -1,4 +1,3 @@
 {
-  "navigationStyle": "custom",
-  "usingComponents": {"base-dialog":"../../components/baseDialog"}
+  "usingComponents": {"base-dialog":"../../components/baseDialog","tab-bar":"../../components/tabBar","empty-block":"../../components/emptyBlock"}
 }

@@ -1,12 +1,15 @@
 {
-    "entryPagePath": "pages/home/index",
+    "entryPagePath": "pages/main/index",
     "pages": [
+        "pages/main/index",
         "pages/home/index",
         "pages/cart/index",
         "pages/classify/index",
         "pages/mine/index",
         "pages/product/index",
-        "pages/place/index"
+        "pages/place/index",
+        "pages/order/index",
+        "pages/orderDetail/index"
     ],
     "permission": {
         "scope.userLocation": {
@@ -18,8 +21,8 @@
         "navigationBarBackgroundColor": "#fff",
         "navigationBarTitleText": "Weixin",
         "navigationBarTextStyle": "black",
-        "backgroundColor":"#f4f5fa",
-        "navigationStyle":"custom"
+        "backgroundColor": "#f4f5fa",
+        "navigationStyle": "custom"
     },
     "tabBar": {
         "custom": true,
@@ -54,6 +57,8 @@
             }
         ]
     },
-    "style": "v2",
-    "sitemapLocation": "sitemap.json"
+    "sitemapLocation": "sitemap.json",
+    "useExtendedLib": {
+        "weui": true
+    }
 }

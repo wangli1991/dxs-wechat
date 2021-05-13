@@ -1,0 +1,10 @@
+<view class="tab-bar" style="opacity:{{show?1:0}};display:{{show?'flex':'none'}}">
+  <view class="tab-bar-border"></view>
+  <view wx:for="{{list}}" wx:key="index" class="tab-bar-item" data-path="{{item.pagePath}}" data-index="{{index}}" bindtap="switchTab">
+    <view class="dot" wx:if="{{index===2}}">{{cartCount}}</view>
+    <image class="img" src="{{selected === index ? item.selectedIconPath : item.iconPath}}" />
+    <view class="text" style="color: {{selected === index ? selectedColor : color}}">
+      {{item.text}}
+    </view>
+  </view>
+</view>

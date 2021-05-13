@@ -6,6 +6,7 @@
     "setting": {
         "urlCheck": false,
         "es6": true,
+        "enhance": true,
         "postcss": true,
         "minified": true,
         "newFeature": true,
@@ -29,9 +30,14 @@
         "userConfirmedUseCompilerModuleSwitch": false,
         "userConfirmedBundleSwitch": false,
         "packNpmManually": false,
-        "packNpmRelationList": [],
+        "packNpmRelationList": [
+            {
+                "packageJsonPath": "./package.json",
+                "miniprogramNpmDistDir": "./"
+            }
+        ],
         "minifyWXSS": true,
-        "enhance": true
+        "nodeModules": true
     },
     "compileType": "miniprogram",
     "libVersion": "2.16.0",

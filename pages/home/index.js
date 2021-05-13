@@ -2,9 +2,8 @@
  * @Author: WangLi
  * @Date: 2021-04-06 20:53:18
  * @LastEditors: WangLi
- * @LastEditTime: 2021-04-30 11:08:19
+ * @LastEditTime: 2021-05-02 11:07:48
  */
-// index.js
 // 获取应用实例
 const app = getApp();
 
@@ -20,12 +19,6 @@ Page({
     tabBarEle: null,
   },
   onLoad() {
-    if (wx.getUserProfile) {
-      this.setData({
-        canIUseGetUserProfile: true,
-      });
-    }
-    this.getUserInfo();
     if (typeof this.getTabBar === "function" && this.getTabBar()) {
       this.setData({
         tabBarEle: this.getTabBar(),
@@ -34,12 +27,16 @@ Page({
         selected: 0,
       });
     }
+    if (wx.getUserProfile) {
+      this.setData({
+        canIUseGetUserProfile: true,
+      });
+    }
   },
   onShow() {
-    const token = wx.getStorageSync("user");
-    console.log(token);
+    const storageUser = wx.getStorageSync("user");
     const { tabBarEle } = this.data;
-    if (tabBarEle && token) {
+    if (tabBarEle && storageUser) {
       tabBarEle.getCartCount();
     }
   },

@@ -2,12 +2,14 @@
  * @Author: WangLi
  * @Date: 2021-04-30 05:49:10
  * @LastEditors: WangLi
- * @LastEditTime: 2021-04-30 11:09:50
+ * @LastEditTime: 2021-05-13 20:04:02
  */
-import { getCartCount } from "../http/api";
+import { getCartCount } from "../../http/api";
 const App = getApp();
-
 Component({
+  options: {
+    styleIsolation: "shared",
+  },
   data: {
     selected: 0,
     color: "#7A7E83",
@@ -30,6 +32,7 @@ Component({
         text: "购物车",
         iconPath: "/images/cart.png",
         selectedIconPath: "/images/cart_active.png",
+        info: 1,
       },
       {
         pagePath: "/pages/mine/index",
@@ -38,7 +41,7 @@ Component({
         selectedIconPath: "/images/mine_active.png",
       },
     ],
-    cartCount: 0,
+    count: 0,
   },
   lifetimes: {
     created: function () {
@@ -46,23 +49,26 @@ Component({
     },
   },
   methods: {
+    onChange(event) {
+      this.setData({ selected: event.detail });
+    },
     switchTab: function (e) {
       const data = e.currentTarget.dataset;
       const url = data.path;
       wx.switchTab({ url });
-      this.setData({
-        selected: data.index,
-      });
+      console.log(data.index);
+      // this.setData({
+      //   selected: data.index,
+      // });
     },
     getCartCount: async function () {
-      console.log(App.globalData.userId, wx.getStorageSync("user"));
       const params = {
         userId: wx.getStorageSync("user"),
       };
       const { code, data, msg } = await getCartCount(params);
       if (code === 200) {
         this.setData({
-          cartCount: data.count,
+          count: data.count,
         });
       }
     },

@@ -2,14 +2,13 @@
  * @Author: WangLi
  * @Date: 2021-04-07 20:35:36
  * @LastEditors: WangLi
- * @LastEditTime: 2021-04-30 09:47:42
+ * @LastEditTime: 2021-05-07 14:21:53
  */
-// components/navbar/index.js
 import {
   getSortList,
   getClassifyList,
   getListByClassify,
-  addCart,
+  creatCart,
 } from "../../http/api";
 import config from "../../config/index";
 import { toast } from "../../utils/util";
@@ -38,6 +37,15 @@ Page({
     tabBarEle: null,
   },
   onLoad: function () {
+    //设置tabbar
+    if (typeof this.getTabBar === "function" && this.getTabBar()) {
+      this.setData({
+        tabBarEle: this.getTabBar(),
+      });
+      this.getTabBar().setData({
+        selected: 1,
+      });
+    }
     this.setData({
       navHeight: App.globalData.navHeight,
       navTop: App.globalData.navTop,
@@ -48,15 +56,6 @@ Page({
     this.getSortList();
   },
   onShow: function () {
-    //设置tabbar
-    if (typeof this.getTabBar === "function" && this.getTabBar()) {
-      this.setData({
-        tabBarEle: this.getTabBar(),
-      });
-      this.getTabBar().setData({
-        selected: 1,
-      });
-    }
     this.getClassifyList();
   },
   initProductPage() {
@@ -199,7 +198,7 @@ Page({
       addCount: 1,
       userId: App.globalData.userId,
     };
-    const { code, msg, data } = await addCart(params);
+    const { code, msg, data } = await creatCart(params);
     if (code === 200) {
       const { tabBarEle } = this.data;
       if (tabBarEle) {

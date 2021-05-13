@@ -1,7 +1,4 @@
 /**index.wxss**/
-page {
-  height: calc(100% - 48px - env(safe-area-inset-bottom));
-}
 .userinfo {
   display: flex;
   flex-direction: column;

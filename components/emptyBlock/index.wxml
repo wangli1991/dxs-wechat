@@ -1,0 +1,7 @@
+<view class="empty-block">
+  <view class="content">
+    <image class="img" src="../../images/empty.png" mode="widthFix" lazy-load="true" />
+    <view class="text">{{text}}</view>
+  </view>
+  <view class="btn" bindtap="goLinkPage">{{linkText}}</view>
+</view>

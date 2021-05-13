@@ -2,17 +2,18 @@
  * @Author: WangLi
  * @Date: 2021-04-06 20:53:18
  * @LastEditors: WangLi
- * @LastEditTime: 2021-04-30 11:07:20
+ * @LastEditTime: 2021-05-03 17:11:36
  */
 // app.js
 const router = require("./router/index");
-import { wxLogin } from "./http/api";
+import { wxLogin, getCartCount } from "./http/api";
 App({
   onLaunch() {
     //自定义navbar全局高度
     let menuButtonObject = wx.getMenuButtonBoundingClientRect();
     wx.getSystemInfo({
       success: (res) => {
+        console.log(res);
         let statusBarHeight = res.statusBarHeight,
           menuButtonHeight = menuButtonObject.height,
           navRight =
@@ -21,13 +22,15 @@ App({
           navHeight =
             statusBarHeight +
             menuButtonHeight +
-            (menuButtonObject.top - statusBarHeight) * 2; //导航高度
+            (menuButtonObject.top - statusBarHeight) * 2, //导航高度
+          tabBarHeight = res.screenHeight - res.windowHeight;
         this.globalData.statusBarHeight = statusBarHeight;
         this.globalData.menuButtonHeight = menuButtonHeight;
         this.globalData.navHeight = navHeight;
         this.globalData.navTop = navTop;
         this.globalData.navRight = navRight;
         this.globalData.windowHeight = res.windowHeight;
+        this.globalData.tabBarHeight = tabBarHeight;
       },
       fail(err) {
         console.log(err);
@@ -71,6 +74,7 @@ App({
         console.log(data.openid);
         wx.setStorageSync("token", data.token);
         wx.setStorageSync("user", data.openid);
+        this.getCartCount();
       } catch (error) {
         console.log(error);
       }
@@ -81,6 +85,9 @@ App({
     wx.getLocation({
       type: "gcj02",
       success(res) {
+        console.log(res);
+        $this.globalData.latitude = res.latitude;
+        $this.globalData.longitude = res.longitude;
         $this.getUserInfo();
       },
       fail() {
@@ -113,5 +120,11 @@ App({
         console.log(res);
       },
     });
+  },
+  getCartCount: async function () {
+    const params = {
+      userId: wx.getStorageSync("user"),
+    };
+    const { code, data, msg } = await getCartCount(params);
   },
 });

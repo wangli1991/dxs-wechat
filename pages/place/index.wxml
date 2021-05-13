@@ -1,4 +1,4 @@
-<navbar pageName="确认订单" showNav />
+<nav-bar pageName="确认订单" showNav />
 <view class="container">
   <scroll-view class="place-scroll" scroll-y="true" scroll-with-animation="true">
     <view class="place-container">
@@ -6,7 +6,7 @@
         <view class="item info-user">
           <view class="flex-box">
             <view class="title">提货人：</view>
-            <view class="value">{{orderUser.name}} {{orderUser.tel}}</view>
+            <view class="value">{{orderUser.name}} {{orderUser.phone}}</view>
             <view class="action" bindtap="editUserHandle">
               <text class="text">修改</text>
               <text class="iconfont icon-dir-right"></text>
@@ -100,6 +100,6 @@
       <text class="num ff-num">{{payPrice}}</text>
     </view>
   </view>
-  <view class="btn">立即支付</view>
+  <view class="btn" bindtap="payHandle">立即支付</view>
 </view>
 <edit-dialog show="{{showEditDialog}}" initial-value="{{initialValues}}" bind:close="closeDialogHandle" bind:confirm="editConfirmHandle" />

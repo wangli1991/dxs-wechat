@@ -23,7 +23,7 @@
       <view class="cart-buy">
         <block wx:if="{{salesCount}}">
           <block wx:for="{{salesList}}" wx:key="index">
-            <view class="cart-item" data-proid="{{item.cart_product}}" bindtap="goProduct">
+            <view class="base-card cart-item" data-proid="{{item.product_id}}" bindtap="goProduct">
               <view class="cart-select" data-index="{{index}}" catchtap="cartSelect">
                 <icon class="icon-small" type="success" size="50rpx" wx:if="{{item.selected}}"></icon>
                 <icon class="icon-small" type="circle" size="50rpx" wx:else></icon>
@@ -63,10 +63,7 @@
           </block>
         </block>
         <block wx:else>
-          <view class="cart-empty">
-            <view class="text">你的购物车空空如也</view>
-            <view class="btn" bindtap="goHome">去首页逛逛</view>
-          </view>
+          <empty-block text="{{emptyText}}" />
         </block>
       </view>
       <view class="cart-notbuy" wx:if="{{salesEndCount}}">
@@ -115,3 +112,4 @@
   <view class="footer-content"></view>
 </view>
 <base-dialog show="{{showNum}}" initial-value="{{selectedValues}}" bind:close="closeDialogHandle" bind:confirm="numConfirmHandle" />
+<tab-bar show="{{showNum}}" selected="0"></tab-bar>

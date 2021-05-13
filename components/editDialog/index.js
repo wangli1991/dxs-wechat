@@ -2,7 +2,7 @@
  * @Author: WangLi
  * @Date: 2021-04-28 13:23:03
  * @LastEditors: WangLi
- * @LastEditTime: 2021-04-29 16:26:49
+ * @LastEditTime: 2021-05-13 04:33:37
  */
 import { cellphoneCheck, toast } from "../../utils/util";
 const App = getApp();
@@ -22,18 +22,24 @@ Component({
   data: {
     isShow: false,
     nameValue: "",
-    telValue: "",
+    phoneValue: "",
   },
   lifetimes: {
     attached: function () {
+      const { show } = this.properties;
       this.setData({
-        isShow: this.properties.show,
+        isShow: show,
       });
     },
   },
   observers: {
     show: function (value) {
       if (value) {
+        const { initialValue } = this.properties;
+        this.setData({
+          nameValue: initialValue.name,
+          phoneValue: initialValue.phone,
+        });
         this.openDialog();
       }
     },
@@ -57,24 +63,24 @@ Component({
     },
     telInputHandle(e) {
       this.setData({
-        telValue: e.detail.value,
+        phoneValue: e.detail.value,
       });
     },
     confirmHandle() {
-      const { initialValue, nameValue, telValue } = this.data;
+      const { nameValue, phoneValue } = this.data;
       if (!nameValue) {
         toast("请填写提货人姓名", "error");
         return;
-      } else if (!telValue) {
+      } else if (!phoneValue) {
         toast("请填写手机号", "error");
         return;
-      } else if (!cellphoneCheck(telValue)) {
+      } else if (!cellphoneCheck(phoneValue)) {
         toast("手机号格式错误", "error");
         return;
       }
       this.triggerEvent("confirm", {
         name: nameValue,
-        tel: telValue,
+        phone: phoneValue,
       });
       this.setData({
         isShow: false,
