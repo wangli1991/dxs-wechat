@@ -2,7 +2,7 @@
  * @Author: WangLi
  * @Date: 2021-04-06 20:53:18
  * @LastEditors: WangLi
- * @LastEditTime: 2021-05-09 06:48:58
+ * @LastEditTime: 2021-05-15 21:37:54
  */
 /**app.wxss**/
 @font-face {
@@ -146,9 +146,12 @@ view {
 }
 page {
   height: calc(100% - env(safe-area-inset-bottom));
+}
+.component-container {
+  height: 100%;
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
+  background-color: #f4f5fa;
 }
 .navbar {
   flex: 0;
@@ -156,8 +159,8 @@ page {
 }
 .container {
   flex: 1;
+  height: 100%;
   overflow: hidden;
-  background-color: #f4f5fa;
 }
 .ff-num {
   font-family: Arial;

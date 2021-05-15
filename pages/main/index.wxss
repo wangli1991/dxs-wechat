@@ -2,16 +2,17 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
-.page-container .content {
+.page-container .main {
   flex: 1;
+  overflow: hidden;
 }
-.my-button {
-  --button-border-radius: 10px;
-  --button-default-color: #f00;
-  --tabbar-item-margin-bottom: 0;
+.page-container .main .main-item {
+  height: 100%;
 }
-.van-button--primary {
-  font-size: 20px;
-  background-color: pink;
+.page-container .footer {
+  flex: 0;
+  flex-basis: auto;
+  height: 52px;
 }

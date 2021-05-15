@@ -1,3 +1,4 @@
 {
-  "usingComponents": {"tab-bar":"../../components/tabBar"}
+  "component": true,
+  "usingComponents": {}
 }

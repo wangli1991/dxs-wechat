@@ -1,93 +1,91 @@
-page {
-  height: calc(100% - 48px - env(safe-area-inset-bottom));
-}
 .mine-scroll {
   width: 100%;
   height: 100%;
 }
 .mine-container {
   min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
-.header {
+.mine-container .header {
   display: flex;
   justify-content: space-between;
   padding: 0 20rpx;
   background-color: #fff;
 }
-.userinfo {
+.mine-container .userinfo {
   flex: 1;
   display: flex;
   align-items: center;
   padding: 20rpx 0;
 }
-.userinfo-avatar {
+.mine-container .userinfo-avatar {
   overflow: hidden;
   width: 128rpx;
   height: 128rpx;
   margin-right: 20rpx;
   border-radius: 50%;
 }
-.userinfo-nickname {
+.mine-container .userinfo-nickname {
   font-size: 36rpx;
   color: #333;
 }
-
-.content {
-  padding: 0 22rpx;
+.mine-container .content {
+  flex: 1;
   margin-top: 20rpx;
 }
-.mine-order .order-header {
+.mine-container .mine-order .order-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 30rpx 30rpx 0;
 }
-.mine-order .order-header .text {
+.mine-container .mine-order .order-header .text {
   font-size: 32rpx;
   color: #333;
 }
-.mine-order .order-header .more {
+.mine-container .mine-order .order-header .more {
   font-size: 26rpx;
   color: #666;
 }
-.order-container {
+.mine-container .order-container {
   display: flex;
   align-items: center;
 }
-.order-container .item {
+.mine-container .order-container .item {
   flex: 1;
   padding: 40rpx 0;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.order-container .iconfont {
+.mine-container .order-container .iconfont {
   font-size: 60rpx;
   color: #07c160;
 }
-.order-container .text {
+.mine-container .order-container .text {
   font-size: 24rpx;
   color: #333;
   line-height: 1;
   margin-top: 20rpx;
 }
 
-.fun-container {
+.mine-container .fun-container {
   display: flex;
   align-items: center;
   margin-top: 20rpx;
 }
-.fun-container .item {
+.mine-container .fun-container .item {
   width: 25%;
   padding: 40rpx 0;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.fun-container .iconfont {
+.mine-container .fun-container .iconfont {
   font-size: 60rpx;
 }
-.fun-container .text {
+.mine-container .fun-container .text {
   font-size: 24rpx;
   color: #333;
   line-height: 1;

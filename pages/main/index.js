@@ -2,7 +2,7 @@
  * @Author: WangLi
  * @Date: 2021-05-13 15:17:55
  * @LastEditors: WangLi
- * @LastEditTime: 2021-05-13 20:04:23
+ * @LastEditTime: 2021-05-15 17:33:58
  */
 // pages/main/index.js
 Page({
@@ -10,33 +10,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    active: 0,
-    tabBarList: [
-      {
-        pagePath: "/pages/home/index",
-        text: "首页",
-        iconPath: "/images/home.png",
-        selectedIconPath: "/images/home_active.png",
-      },
-      {
-        pagePath: "/pages/classify/index",
-        text: "分类",
-        iconPath: "/images/classify.png",
-        selectedIconPath: "/images/classify_active.png",
-      },
-      {
-        pagePath: "/pages/cart/index",
-        text: "购物车",
-        iconPath: "/images/cart.png",
-        selectedIconPath: "/images/cart_active.png",
-      },
-      {
-        pagePath: "/pages/mine/index",
-        text: "我的",
-        iconPath: "/images/mine.png",
-        selectedIconPath: "/images/mine_active.png",
-      },
-    ],
+    selected: 0,
+    timestamp: null,
   },
 
   /**
@@ -73,8 +48,9 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {},
-  onChange(event) {
-    this.setData({ active: event.detail });
+  onChange(e) {
+    console.log(e.detail);
+    this.setData({ selected: e.detail, timestamp: new Date().getTime() });
   },
   init() {
     const page = getCurrentPages().pop();

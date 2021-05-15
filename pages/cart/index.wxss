@@ -146,7 +146,7 @@
   position: fixed;
   left: 0;
   right: 0;
-  bottom: 48px;
+  bottom: 52px;
 }
 .cart-footer .footer-actions {
   width: 100%;

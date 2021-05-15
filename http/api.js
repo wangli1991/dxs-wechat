@@ -2,12 +2,15 @@
  * @Author: WangLi
  * @Date: 2021-04-12 14:06:37
  * @LastEditors: WangLi
- * @LastEditTime: 2021-05-13 04:41:23
+ * @LastEditTime: 2021-05-14 13:17:36
  */
 import request from "./request";
 
 //微信登陆
 export const wxLogin = (params) => request.post("/user/wxLogin", params);
+
+//微信登陆
+export const getUserInfo = (params) => request.post("/user/info", params);
 
 //获取分类数据
 export const getClassifyList = (params) =>

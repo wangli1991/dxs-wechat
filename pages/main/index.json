@@ -1,3 +1,10 @@
 {
-  "usingComponents": {"tab-bar":"../../components/tabBar","van-button": "@vant/weapp/button/index"}
+  "usingComponents": {
+    "tab-bar":"../../components/tabBar",
+    "van-overlay": "@vant/weapp/overlay/index",
+    "home":"../../pages/home",
+    "classify":"../../pages/classify",
+    "cart":"../../pages/cart",
+    "mine":"../../pages/mine"
+  }
 }

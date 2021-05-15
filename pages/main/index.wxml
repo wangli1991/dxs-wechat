@@ -1,12 +1,11 @@
 <view class="page-container">
-  <view class="content">
-    <view class="item" hidden="{{active!==0}}"></view>
-    <view class="item" hidden="{{active!==1}}"></view>
-    <view class="item" hidden="{{active!==2}}"></view>
-    <view class="item" hidden="{{active!==3}}"></view>
-    <van-button type="primary">主要按钮</van-button>
+  <view class="main">
+    <home class="main-item" selected="{{selected}}" style="display:{{selected===0?'block':'none'}}" />
+    <classify class="main-item" selected="{{selected}}" style="display:{{selected===1?'block':'none'}}" />
+    <cart class="main-item" selected="{{selected}}" style="display:{{selected===2?'block':'none'}}" />
+    <mine class="main-item" selected="{{selected}}" style="display:{{selected===3?'block':'none'}}" />
   </view>
   <view class="footer">
-    <tab-bar />
+    <tab-bar bind:change="onChange" />
   </view>
 </view>

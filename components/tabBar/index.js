@@ -2,7 +2,7 @@
  * @Author: WangLi
  * @Date: 2021-04-30 05:49:10
  * @LastEditors: WangLi
- * @LastEditTime: 2021-05-13 20:04:02
+ * @LastEditTime: 2021-05-13 20:25:20
  */
 import { getCartCount } from "../../http/api";
 const App = getApp();
@@ -51,6 +51,7 @@ Component({
   methods: {
     onChange(event) {
       this.setData({ selected: event.detail });
+      this.triggerEvent("change", event.detail);
     },
     switchTab: function (e) {
       const data = e.currentTarget.dataset;

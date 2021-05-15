@@ -1,4 +1,4 @@
 {
     "component": true,
-    "usingComponents": {}
+    "usingComponents": {"van-popup": "@vant/weapp/popup/index"}
 }

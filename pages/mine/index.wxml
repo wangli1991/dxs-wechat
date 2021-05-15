@@ -1,58 +1,60 @@
-<nav-bar pageName="个人中心" />
-<view class="container">
-  <scroll-view class="mine-scroll" scroll-y="true" scroll-with-animation="true">
-    <view class="mine-container">
-      <view class="header">
-        <view class="userinfo">
-          <block wx:if="{{canIUseOpenData}}">
-            <view class="userinfo-avatar">
-              <open-data type="userAvatarUrl"></open-data>
-            </view>
-            <view class="userinfo-nickname">
-              <open-data type="userNickName"></open-data>
-            </view>
-          </block>
-          <block wx:elif="{{!hasUserInfo}}">
-            <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile">获取头像昵称</button>
-            <button wx:elif="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">
-              获取头像昵称
-            </button>
-          </block>
-          <block wx:else>
-            <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-            <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-          </block>
-        </view>
-      </view>
-      <view class="content">
-        <view class="base-card mine-order">
-          <view class="order-header">
-            <view class="text">我的订单</view>
-            <view class="more" data-type="" bindtap="goOrder">
-              <text>全部订单</text>
-              <text class="iconfont icon-dir-right"></text>
-            </view>
-          </view>
-          <view class="order-container">
-            <block wx:for="{{orderTypeList}}" wx:key="index">
-              <view class="item" data-type="{{item.type}}" bindtap="goOrder">
-                <view class="iconfont icon-home"></view>
-                <view class="text">{{item.name}}</view>
+<view class="component-container" hidden="{{selected!==3}}">
+  <nav-bar pageName="个人中心" />
+  <view class="container">
+    <scroll-view class="mine-scroll" scroll-y="true" scroll-with-animation="true">
+      <view class="mine-container">
+        <view class="header">
+          <view class="userinfo">
+            <block wx:if="{{canIUseOpenData}}">
+              <view class="userinfo-avatar">
+                <open-data type="userAvatarUrl"></open-data>
               </view>
+              <view class="userinfo-nickname">
+                <open-data type="userNickName"></open-data>
+              </view>
+            </block>
+            <block wx:elif="{{!hasUserInfo}}">
+              <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile">获取头像昵称</button>
+              <button wx:elif="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">
+                获取头像昵称
+              </button>
+            </block>
+            <block wx:else>
+              <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+              <text class="userinfo-nickname">{{userInfo.nickName}}</text>
             </block>
           </view>
         </view>
-        <view class="base-card fun-container">
-          <view class="item">
-            <view class="iconfont icon-home"></view>
-            <view class="text">提货二维码</view>
+        <view class="content">
+          <view class="base-card mine-order">
+            <view class="order-header">
+              <view class="text">我的订单</view>
+              <view class="more" data-type="" bindtap="goOrder">
+                <text>全部订单</text>
+                <text class="iconfont icon-dir-right"></text>
+              </view>
+            </view>
+            <view class="order-container">
+              <block wx:for="{{orderTypeList}}" wx:key="index">
+                <view class="item" data-type="{{item.type}}" bindtap="goOrder">
+                  <view class="iconfont icon-home"></view>
+                  <view class="text">{{item.name}}</view>
+                </view>
+              </block>
+            </view>
           </view>
-          <view class="item">
-            <view class="iconfont icon-home"></view>
-            <view class="text">关于我们</view>
+          <view class="base-card fun-container">
+            <view class="item">
+              <view class="iconfont icon-home"></view>
+              <view class="text">提货二维码</view>
+            </view>
+            <view class="item">
+              <view class="iconfont icon-home"></view>
+              <view class="text">关于我们</view>
+            </view>
           </view>
         </view>
       </view>
-    </view>
-  </scroll-view>
+    </scroll-view>
+  </view>
 </view>
