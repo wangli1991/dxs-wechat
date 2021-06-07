@@ -2,7 +2,7 @@
  * @Author: WangLi
  * @Date: 2021-04-28 13:23:03
  * @LastEditors: WangLi
- * @LastEditTime: 2021-05-15 22:36:58
+ * @LastEditTime: 2021-06-02 09:13:44
  */
 const App = getApp();
 Component({
@@ -31,7 +31,7 @@ Component({
   observers: {
     show: function (value) {
       if (value) {
-        this.openHandle();
+        this.openDialog();
       }
     },
   },
@@ -58,13 +58,13 @@ Component({
         tranAnimation: tranAnimation.export(),
       });
     },
-    closeHandle() {
+    closeDialog() {
       this.triggerEvent("close");
       this.setData({
         isShow: false,
       });
     },
-    openHandle() {
+    openDialog() {
       this.setData({
         isShow: true,
       });

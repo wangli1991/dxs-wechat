@@ -68,7 +68,7 @@
   text-align: center;
   font-size: 30rpx;
   line-height: 80rpx;
-  background: #07c160;
+  background: #02c521;
   border-radius: 10rpx;
   margin-top: 40rpx;
   color: #fff;

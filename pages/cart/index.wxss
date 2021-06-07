@@ -18,17 +18,31 @@
 .navbar-text {
   flex: 1;
 }
+.cart {
+  display: flex;
+  flex-direction: column;
+}
 .cart-scroll {
   width: 100%;
-  height: 100%;
+  flex: 1;
 }
 .cart-container {
-  min-height: 100%;
+  flex: 1;
   padding: 0 22rpx;
+  overflow: hidden;
+}
+.cart-footer {
+  flex: 0;
+  flex-basis: auto;
+}
+.cart-footer .text {
+  font-size: 30rpx;
+  line-height: 1;
 }
 .cart-container .cart-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding-top: 20rpx;
 }
 .cart-header .action {
@@ -58,8 +72,8 @@
   border-top: 0;
 }
 .cart-buy .cart-select {
-  width: 40rpx;
-  height: 40rpx;
+  width: 50rpx;
+  height: 50rpx;
   margin: 0 15rpx;
 }
 .cart-buy .img-container {
@@ -92,14 +106,14 @@
 .cart-buy .tag {
   display: inline-block;
   font-size: 20rpx;
-  color: #07c160;
+  color: #02c521;
   line-height: 1;
   padding: 3px;
   background-color: rgba(7, 193, 96, 0.1);
   border-radius: 2rpx;
 }
 .cart-buy .tag.discount {
-  color: #f00;
+  color: #ff3634;
   background-color: rgba(255, 0, 0, 0.1);
 }
 .cart-buy .buy {
@@ -110,7 +124,7 @@
   margin-top: 8rpx;
 }
 .cart-buy .buy-price .now {
-  color: #f00;
+  color: #ff3634;
   line-height: 1;
   display: flex;
   align-items: flex-end;
@@ -142,12 +156,6 @@
 .cart-notbuy {
   margin-top: 15rpx;
 }
-.cart-footer {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 52px;
-}
 .cart-footer .footer-actions {
   width: 100%;
   display: flex;
@@ -157,7 +165,7 @@
   border-top-left-radius: 15rpx;
   border-top-right-radius: 15rpx;
   background-color: #fff;
-  border-top: 2rpx solid #07c160;
+  border-top: 2rpx solid #02c521;
   overflow: hidden;
 }
 .cart-footer .footer-actions .left {
@@ -181,7 +189,7 @@
   line-height: 1;
   text-align: right;
   margin-top: 5rpx;
-  color: #07c160;
+  color: #02c521;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -204,8 +212,8 @@
 }
 .cart-footer .footer-actions .btn.del {
   background-color: #fff;
-  color: #f00;
-  border: 2rpx solid #f00;
+  color: #ff3634;
+  border: 2rpx solid #ff3634;
   line-height: 66rpx;
 }
 .cart-empty {
@@ -228,4 +236,11 @@
   background-image: linear-gradient(#02c521, #03ba22);
   text-align: center;
   border-radius: 40rpx;
+}
+.product-recommend .recommend-title {
+  font-size: 30rpx;
+  line-height: 1;
+  color: #333;
+  text-align: center;
+  padding: 30rpx 0 30rpx;
 }

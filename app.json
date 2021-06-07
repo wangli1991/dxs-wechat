@@ -1,6 +1,7 @@
 {
-    "entryPagePath": "pages/main/index",
+    "entryPagePath": "pages/welcome/index",
     "pages": [
+        "pages/welcome/index",
         "pages/main/index",
         "pages/home/index",
         "pages/cart/index",
@@ -9,7 +10,10 @@
         "pages/product/index",
         "pages/place/index",
         "pages/order/index",
-        "pages/orderDetail/index"
+        "pages/orderDetail/index",
+        "pages/search/index",
+        "pages/sales/index",
+        "pages/login/index"
     ],
     "permission": {
         "scope.userLocation": {
@@ -19,7 +23,7 @@
     "window": {
         "backgroundTextStyle": "light",
         "navigationBarBackgroundColor": "#fff",
-        "navigationBarTitleText": "Weixin",
+        "navigationBarTitleText": "",
         "navigationBarTextStyle": "black",
         "backgroundColor": "#f4f5fa",
         "navigationStyle": "custom"
@@ -27,7 +31,7 @@
     "tabBar": {
         "custom": true,
         "color": "#7A7E83",
-        "selectedColor": "#07c160",
+        "selectedColor": "#02c521",
         "borderStyle": "black",
         "backgroundColor": "#ffffff",
         "list": [
@@ -60,5 +64,8 @@
     "sitemapLocation": "sitemap.json",
     "useExtendedLib": {
         "weui": true
+    },
+    "usingComponents": {
+        "mp-icon": "weui-miniprogram/icon/icon"
     }
 }

@@ -42,7 +42,7 @@
 }
 .place-container .place-info .item .action {
   font-size: 30rpx;
-  color: #07c160;
+  color: #02c521;
   line-height: 1;
 }
 .place-container .place-info .desc {
@@ -170,7 +170,7 @@
   line-height: 1;
 }
 .place-container .place-price .price.save {
-  color: #07c160;
+  color: #02c521;
 }
 .place-container .place-coupon .title {
   font-size: 32rpx;
@@ -187,7 +187,7 @@
 .place-container .place-coupon .price {
   display: flex;
   align-items: flex-end;
-  color: #07c160;
+  color: #02c521;
 }
 .place-container .place-coupon .price .num {
   line-height: 1;
@@ -232,7 +232,7 @@
   line-height: 1;
 }
 .place-footer .text .price {
-  color: #07c160;
+  color: #02c521;
   display: flex;
   align-items: baseline;
 }

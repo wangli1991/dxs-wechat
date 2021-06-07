@@ -2,9 +2,11 @@
  * @Author: WangLi
  * @Date: 2021-04-12 14:06:10
  * @LastEditors: WangLi
- * @LastEditTime: 2021-05-15 06:47:57
+ * @LastEditTime: 2021-06-03 15:31:07
  */
 import config from "../config/index";
+import { Toast } from "../utils/util";
+
 class Request {
   constructor(parms) {}
   get(url, data) {
@@ -33,19 +35,29 @@ class Request {
         timeout: config.timeout,
         header,
         success(res) {
-          const cookie = res.header["Set-Cookie"];
-          if (cookie) {
-            wx.setStorageSync("sessionid", res.header["Set-Cookie"]);
+          if (res.data.code !== 200) {
+            wx.showToast({
+              title: res.data.msg,
+              icon: "none",
+              duration: 2000,
+              mask: true,
+            });
+          } else {
+            const cookie = res.header["Set-Cookie"];
+            if (cookie) {
+              wx.setStorageSync("sessionid", res.header["Set-Cookie"]);
+            }
           }
           resolve(res.data);
         },
-        fail() {
+        fail(error) {
           wx.showToast({
             title: "网络繁忙，请稍后重试",
-            icon: "error",
+            icon: "none",
             duration: 2000,
             mask: true,
           });
+          reject(error);
         },
       });
     });

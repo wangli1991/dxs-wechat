@@ -1,4 +1,8 @@
 {
-  "navigationStyle": "custom",
-  "usingComponents": {"bottom-popup":"../../components/bottomPopup"}
+  "usingComponents": {
+    "bottom-popup":"../../components/bottomPopup",
+    "back-top": "../../components/backTop",
+    "recommend": "../../components/recommend",
+    "pull-refresh":"../../components/pullRefresh/index"
+  }
 }

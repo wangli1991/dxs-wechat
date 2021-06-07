@@ -2,11 +2,9 @@
  * @Author: WangLi
  * @Date: 2021-04-06 20:53:18
  * @LastEditors: WangLi
- * @LastEditTime: 2021-05-03 17:11:36
+ * @LastEditTime: 2021-06-07 10:02:30
  */
-// app.js
 const router = require("./router/index");
-import { wxLogin, getCartCount } from "./http/api";
 App({
   onLaunch() {
     //自定义navbar全局高度
@@ -29,6 +27,7 @@ App({
         this.globalData.navHeight = navHeight;
         this.globalData.navTop = navTop;
         this.globalData.navRight = navRight;
+        this.globalData.windowWidth = res.windowWidth;
         this.globalData.windowHeight = res.windowHeight;
         this.globalData.tabBarHeight = tabBarHeight;
       },
@@ -37,21 +36,21 @@ App({
       },
     });
     this.getLocation();
-    // 登录
-    wx.login({
-      success: (res) => {
-        console.log("app login");
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        this.getWxInfo(res.code);
-      },
-    });
+    const openid = wx.getStorageSync("user");
+    if (openid) {
+      this.globalData.userId = openid;
+      return;
+    }
+  },
+  onShow() {
+    console.log("小程序启动了");
   },
   globalData: {
     userInfo: null,
     userId: null,
   },
   router,
-  authSetting: function () {
+  authSetting() {
     wx.getSetting({
       success(res) {
         console.log(res);
@@ -66,21 +65,7 @@ App({
       },
     });
   },
-  getWxInfo: async function (value) {
-    const { code, data } = await wxLogin({ code: value });
-    if (code === 200) {
-      try {
-        this.globalData.userId = data.openid;
-        console.log(data.openid);
-        wx.setStorageSync("token", data.token);
-        wx.setStorageSync("user", data.openid);
-        this.getCartCount();
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  },
-  getLocation: function (e) {
+  getLocation(e) {
     const $this = this;
     wx.getLocation({
       type: "gcj02",
@@ -121,10 +106,7 @@ App({
       },
     });
   },
-  getCartCount: async function () {
-    const params = {
-      userId: wx.getStorageSync("user"),
-    };
-    const { code, data, msg } = await getCartCount(params);
+  rpxToPxFormat(value) {
+    return (value / 750) * wx.getSystemInfoSync().windowWidth;
   },
 });

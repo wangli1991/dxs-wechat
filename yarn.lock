@@ -4,5 +4,10 @@
 
 "@vant/weapp@^1.6.8":
   version "1.6.8"
-  resolved "https://registry.npm.taobao.org/@vant/weapp/download/@vant/weapp-1.6.8.tgz#948ae16fba07c5a2054c52783f22aaf6a04453e1"
+  resolved "https://registry.nlark.com/@vant/weapp/download/@vant/weapp-1.6.8.tgz#948ae16fba07c5a2054c52783f22aaf6a04453e1"
   integrity sha1-lIrhb7oHxaIFTFJ4PyKq9qBEU+E=
+
+weui-miniprogram@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.npm.taobao.org/weui-miniprogram/download/weui-miniprogram-1.0.8.tgz#e7917c47a5d7e951b30694d939d0a2e5e005b274"
+  integrity sha1-55F8R6XX6VGzBpTZOdCi5eAFsnQ=

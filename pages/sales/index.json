@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "nav-bar":"../../components/navBar",
+    "count-down": "../../components/countDown",
+    "pull-refresh":"../../components/pullRefresh/index",
+    "skeleton":"/components/skeleton"
+  }
+}

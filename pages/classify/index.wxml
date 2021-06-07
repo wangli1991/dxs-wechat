@@ -1,15 +1,7 @@
 <!-- pages/classify/classify.wxml -->
 <view class="component-container" hidden="{{selected!==1}}">
-  <view class="navbar" style="height:{{navHeight}}px;background-color:#fff">
-    <view class="navbar-container" style="top:{{navTop}}px;height:{{menuButtonHeight}}px">
-      <view class="navbar-title app-fz38 app-padl22">分类</view>
-      <view class="navbar-search app-padlr20" style="margin-right:{{navRight}}px">
-        <view class="search-container" style="border-radius:{{menuButtonHeight/2}}px">
-          <text class="search-icon iconfont icon-search app-fz26 app-marl20"></text>
-          <text class="search-text app-fz22 app-marl15">{{searchText}}</text>
-        </view>
-      </view>
-    </view>
+  <view class="header classify-header">
+    <navbar-main title="分类" searchColor="#f2f2f2" />
   </view>
   <view class="container">
     <view class="classify-container">
@@ -40,11 +32,11 @@
           </block>
         </view>
         <view class="foot">
-          <scroll-view class="classify-content-scroll" scroll-y="true" enhanced="true" refresher-enabled="true" refresher-threshold="50" refresher-default-style="black" refresher-background="#f00" show-scrollbar="false" bindrefresherrefresh="onScrollRefresh" bindrefresherrestore="onScrollRestore" refresher-triggered="{{isRefresh}}" bindscrolltolower="lower" lower-threshold="50">
+          <pull-refresh class="pull-refresh" scroll-top="{{scrollTop}}" bindrefresherpulling="pullingHandle" bindrefresherrefresh="refreshHandle" bindrefresherrestore="restoreHandle" refreshing="{{isRefreshing}}" bindlower="lowerHandle" pullText="{{pullText}}" nomore="{{!loadMore}}" loadmoreText="{{loadMoreText}}">
             <block wx:for="{{productList}}" wx:key="index">
               <view class="classify-item" data-id="{{item.id}}" bindtap="productTap">
                 <view class="img-container">
-                  <image class="img" src="../../images/cart_active.png" mode="aspectFit" lazy-load="true" />
+                  <image class="img" src="../../images/product.png" mode="aspectFit" lazy-load="true" />
                 </view>
                 <view class="content">
                   <view class="header app-fz30">
@@ -73,12 +65,10 @@
                 </view>
               </view>
             </block>
-            <view class="classify-loading">{{loadMoreText}}</view>
-            <view class="classify-tips" wx:if="{{isInitProductPage}}">上滑加载更多好物...</view>
-          </scroll-view>
+            <view class="classify-tips" wx:if="{{isInitPage}}">上滑加载更多好物...</view>
+          </pull-refresh>
         </view>
       </view>
     </view>
-    <view class="back-top"></view>
   </view>
 </view>

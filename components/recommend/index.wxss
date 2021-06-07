@@ -1,0 +1,86 @@
+.recommend {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.recommend .item {
+  width: calc(50% - 8rpx);
+  background-color: #fff;
+  margin-bottom: 16rpx;
+  overflow: hidden;
+  padding: 0 20rpx;
+}
+.recommend .img-container {
+  width: 100%;
+}
+.recommend .img-container .img {
+  width: 100%;
+  height: calc(50vw - 15rpx);
+}
+.recommend .content {
+  border-bottom: 1rpx solid #f5f5f5;
+  padding: 5rpx 0 15rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.recommend .header .title {
+  color: #333;
+  font-weight: bold;
+}
+.recommend .tag {
+  display: inline-block;
+  font-size: 20rpx;
+  color: #02c521;
+  line-height: 1;
+  padding: 3px;
+  background-color: rgba(7, 193, 96, 0.1);
+  border-radius: 2rpx;
+}
+.recommend .tag.discount {
+  color: #ff3634;
+  background-color: rgba(255, 0, 0, 0.1);
+}
+.recommend .buy {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8rpx;
+}
+.recommend .buy-price .now {
+  color: #ff3634;
+  line-height: 1;
+  display: flex;
+  align-items: flex-end;
+}
+.recommend .buy-price .old {
+  color: #999;
+  line-height: 1;
+}
+.recommend .buy-cart {
+  width: 50rpx;
+  height: 50rpx;
+  background-color: #02c521;
+  color: #fff;
+  line-height: 50rpx;
+  border-radius: 50%;
+  text-align: center;
+}
+.recommend .buy-cart .iconfont {
+  font-size: 32rpx;
+}
+.recommend .more {
+  height: 80rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.recommend .more .title {
+  font-size: 28rpx;
+  color: #333;
+}
+.recommend .more .action {
+  font-size: 30rpx;
+  color: #02c521;
+}

@@ -5,12 +5,12 @@
       <view class="navbar-text app-fz22 app-marl20">共{{cartCount}}件商品</view>
     </view>
   </view>
-  <view class="container">
-    <scroll-view class="place-scroll" scroll-y="true" scroll-with-animation="true">
-      <view class="cart-container">
+  <view class="container cart">
+    <view class="cart-container">
+      <pull-refresh class="pull-refresh" refresherEnable="{{false}}" bindscrolltolower="scrolltolowerHandle" nomore="{{!loadMore}}" loadmoreText="{{loadMoreText}}">
         <view class="cart-header">
-          <view></view>
-          <view class="action" bindtap="editCartHandle">
+          <view class="text">提货点：明新超市</view>
+          <view class="action" bindtap="editHandle">
             <block wx:if="{{salesCount&&!editCart}}">
               <view class="iconfont icon-edit"></view>
               <text class="text">编辑购物车</text>
@@ -25,11 +25,11 @@
             <block wx:for="{{salesList}}" wx:key="index">
               <view class="base-card cart-item" data-proid="{{item.product_id}}" bindtap="goProduct">
                 <view class="cart-select" data-index="{{index}}" catchtap="cartSelect">
-                  <icon class="icon-small" type="success" size="50rpx" wx:if="{{item.selected}}"></icon>
-                  <icon class="icon-small" type="circle" size="50rpx" wx:else></icon>
+                  <icon class="icon" type="success" size="50rpx" wx:if="{{item.selected}}"></icon>
+                  <icon class="icon" type="circle" size="50rpx" wx:else></icon>
                 </view>
                 <view class="img-container">
-                  <image class="img" src="../../images/cart_active.png" mode="aspectFit" lazy-load="true" />
+                  <image class="img" src="../../images/product.png" mode="aspectFit" lazy-load="true" />
                 </view>
                 <view class="content">
                   <view class="header">
@@ -63,7 +63,7 @@
             </block>
           </block>
           <block wx:else>
-            <empty-block text="{{emptyText}}" />
+            <empty-block text="{{emptyText}}" linkType="switchTab" bind:change="tabbarChange" />
           </block>
         </view>
         <view class="cart-notbuy" wx:if="{{salesEndCount}}">
@@ -77,39 +77,45 @@
             <text class="iconfont {{showAll?'icon-dir-down':'icon-dir-up'}}"></text>
           </view>
         </view>
-      </view>
-    </scroll-view>
-  </view>
-  <view class="cart-footer">
-    <view class="footer-actions">
-      <view class="left" bindtap="cartSelectAll">
-        <icon class="icon-small" type="success" size="50rpx" wx:if="{{selectedAll}}"></icon>
-        <icon class="icon-small" type="circle" size="50rpx" wx:else></icon>
-        <text class="text">全选</text>
-      </view>
-      <view class="right">
-        <block wx:if="{{editCart}}">
-          <view class="btn del" bindtap="deleteHandle">删除({{selectedCount}})</view>
-        </block>
-        <block wx:else>
-          <view class="price" bindtap="showPiceInfo">
-            <view class="price-order">
-              合计
-              <text class="ff-num app-fz34">￥{{totalPrice}}</text>
-            </view>
-            <view class="price-save" wx:if="{{savePrice}}">
-              <view class="app-fz30">
-                节省
-                <text class="ff-num">￥{{savePrice}}</text>
-              </view>
-              <!-- <text class="iconfont {{showInfo?'icon-dir-down':'icon-dir-up'}}"></text> -->
-            </view>
+        <view class="product-recommend">
+          <view class="recommend-title">商品推荐</view>
+          <view class="recommend-container">
+            <recommend list="{{productList}}" bind:updateCart="updateCartHandle" />
           </view>
-          <view class="btn {{selectedCount?'active':'disabled'}}" bindtap="cartPlace">去下单</view>
-        </block>
-      </view>
+        </view>
+      </pull-refresh>
     </view>
-    <view class="footer-content"></view>
+    <view class="cart-footer">
+      <view class="footer-actions">
+        <view class="left" bindtap="cartSelectAll">
+          <icon class="icon-small" type="success" size="50rpx" wx:if="{{selectedAll}}"></icon>
+          <icon class="icon-small" type="circle" size="50rpx" wx:else></icon>
+          <text class="text">全选</text>
+        </view>
+        <view class="right">
+          <block wx:if="{{editCart}}">
+            <view class="btn del" bindtap="deleteHandle">删除({{selectedCount}})</view>
+          </block>
+          <block wx:else>
+            <view class="price" bindtap="showPiceInfo">
+              <view class="price-order">
+                合计
+                <text class="ff-num app-fz34">￥{{totalPrice}}</text>
+              </view>
+              <view class="price-save" wx:if="{{savePrice}}">
+                <view class="app-fz30">
+                  节省
+                  <text class="ff-num">￥{{savePrice}}</text>
+                </view>
+                <!-- <text class="iconfont {{showInfo?'icon-dir-down':'icon-dir-up'}}"></text> -->
+              </view>
+            </view>
+            <view class="btn {{selectedCount?'active':'disabled'}}" bindtap="cartPlace">去下单</view>
+          </block>
+        </view>
+      </view>
+      <view class="footer-content"></view>
+    </view>
   </view>
 </view>
 <base-dialog style="display:block;height:calc(100vh)" show="{{showNum}}" initial-value="{{selectedValues}}" bind:close="closeDialogHandle" bind:confirm="numConfirmHandle" />

@@ -2,28 +2,39 @@
 <view class="container">
   <view class="order-header">
     <block wx:for="{{orderTypeList}}" wx:key="index">
-      <view class="item {{index==currentOrder?'active':''}}" data-index="{{index}}" bindtap="getOrder">
+      <view class="item {{index==currentOrder?'active':''}}" data-index="{{index}}" bindtap="orderChange">
         {{item.name}}
       </view>
     </block>
-    <!-- <view class="item active" data-index="0" bindtap="getOrder">全部</view> -->
   </view>
   <view class="order-container">
-    <block wx:if="{{orderCount}}">
-      <scroll-view class="order-scroll" scroll-y="true" enhanced show-scrollbar="false">
+    <block wx:if="{{orderTotal}}">
+      <pull-refresh class="pull-refresh" bindrefresherrefresh="refreshHandle" bindscrolltolower="scrolltolowerHandle" refreshing="{{isRefreshing}}" nomore="{{!loadMore}}">
         <view class="scroll-container">
           <block wx:for="{{orderList}}" wx:key="index">
-            <view class="base-card item" bindtap="goOrderDetail">
+            <view class="base-card item" data-id="{{item.id}}" bindtap="goOrderDetail">
               <view class="header">
                 <view class="time">{{item.creat_time}}</view>
                 <view class="text">
                   <block wx:if="{{item.status===0}}">
-                    <view class="title">距离支付结束时间{{item.status}}</view>
+                    <view class="title">距离支付结束时间</view>
                     <view class="active">
-                      <count-down end="{{item.pay_end_time}}" data-id="{{item.id}}" format="m:s" bindcallback="countDownHandle" clear-timer="{{clearTimer}}"></count-down>
+                      <count-down end="{{item.pay_end_time}}" data-id="{{item.id}}" format="m:s" bindend="countDownHandle" clear-timer="{{clearTimer}}"></count-down>
                     </view>
                   </block>
-                  <block wx:if="{{item.status===5}}">
+                  <block wx:elif="{{item.status===1}}">
+                    <text class="active">已支付，待发货</text>
+                  </block>
+                  <block wx:elif="{{item.status===2}}">
+                    <text class="active">已送达，待提货</text>
+                  </block>
+                  <block wx:elif="{{item.status===3}}">
+                    <text class="active">提货成功</text>
+                  </block>
+                  <block wx:elif="{{item.status===4}}">
+                    <text class="active">交易取消</text>
+                  </block>
+                  <block wx:else>
                     <text class="active">未支付，交易关闭</text>
                   </block>
                 </view>
@@ -34,7 +45,7 @@
                     <view class="imgs {{item.count>3?'scroll':''}}">
                       <scroll-view class="imgs-scroll" scroll-x="true">
                         <block wx:for="{{item.children}}" wx:key="index" wx:for-item="product">
-                          <image class="img" src="../../images/cart_active.png" mode="aspectFit" lazy-load="true" />
+                          <image class="img" src="../../images/product.png" mode="aspectFit" lazy-load="true" />
                         </block>
                       </scroll-view>
                     </view>
@@ -42,7 +53,7 @@
                   <block wx:else>
                     <block wx:for="{{item.children}}" wx:key="index" wx:for-item="product">
                       <view class="imgs">
-                        <image class="img" src="../../images/cart_active.png" mode="aspectFit" lazy-load="true" />
+                        <image class="img" src="../../images/product.png" mode="aspectFit" lazy-load="true" />
                       </view>
                       <view class="title">{{product.name}}</view>
                     </block>
@@ -53,7 +64,7 @@
               <view class="footer">
                 <text class="text">实付款</text>
                 <text class="unit">￥</text>
-                <text class="num ff-num">{{item.sales_price}}</text>
+                <text class="num ff-num">{{item.pay_cost}}</text>
               </view>
               <view class="btns">
                 <view class="btn active" catchtap="payHandle" wx:if="{{item.status===0}}">去支付</view>
@@ -61,10 +72,10 @@
             </view>
           </block>
         </view>
-      </scroll-view>
+      </pull-refresh>
     </block>
     <block wx:else>
-      <empty-block text="{{emptyText}}" />
+      <empty-block description="{{emptyText}}" />
     </block>
   </view>
 </view>

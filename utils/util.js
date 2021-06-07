@@ -1,9 +1,4 @@
-/*
- * @Author: WangLi
- * @Date: 2021-04-06 20:53:18
- * @LastEditors: WangLi
- * @LastEditTime: 2021-05-11 13:54:28
- */
+import config from "../config/index";
 /**
  * @description: 校验手机号
  * @param {*} str 手机号
@@ -13,8 +8,25 @@ const cellphoneCheck = (str) => {
   const reg = /^1[0-9]{10}$/;
   return reg.test(str);
 };
+/**
+ * @description: 计算时间差
+ * @param {*} start 开始时间
+ * @param {*} end 结束时间
+ * @return {*} 时间差值
+ */
+const diffTime = (start, end) => {
+  const startTimestamp = new Date(start).getTime();
+  const endTimestamp = new Date(end).getTime();
+  return endTimestamp - startTimestamp;
+};
 
-const formatTime = (date, format = "YYYY-MM-DD") => {
+/**
+ * @description: 时间戳转换时间
+ * @param {*} date
+ * @param {*} format
+ * @return {*}
+ */
+const formatDate = (date, format = "YYYY-MM-DD hh:mm:ss") => {
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();
@@ -38,7 +50,7 @@ const formatNumber = (n) => {
 
 /**
  * 时间戳转化为年 月 日 时 分 秒
- * number: 传入时间戳
+ * date: 传入时间 例2021-05-28 12：00：00
  * format：返回格式，支持自定义，但参数必须与formateArr里保持一致
  */
 const transformDate = (date, format = "Y-M-D") => {
@@ -59,14 +71,6 @@ const transformDate = (date, format = "Y-M-D") => {
 };
 
 /**
- * @description:
- * @param {*} start 开始时间
- * @param {*} end 结束时间
- * @param {*} format 时间格式
- * @return {*}
- */
-const setCountdown = (start, end, format = "h:m:s") => {};
-/**
  * @description: 四舍五入保留小数
  * @param {*} value 原始数字
  * @param {*} num 小数位数 默认2
@@ -77,34 +81,55 @@ const mathRound = (value = 1, num = 2) => {
 };
 
 /**
- * @description: toast提示
+ * @description: loading提示
  * @param {*} title 提示文字
  * @return {*}
  */
-const toast = (title = "成功", icon = "none", mask = true) => {
-  wx.showToast({
+const Loading = (title = "加载中", mask = true) => {
+  wx.showLoading({
     title,
-    icon,
-    duration: 1500,
     mask,
   });
 };
 
 /**
- * @description: modal确认提示
+ * @description: hideLoading提示
+ * @param {*} title 提示文字
+ * @return {*}
+ */
+const hideLoading = () => {
+  wx.hideLoading();
+};
+
+/**
+ * @description: toast提示
+ * @param {*} title 提示文字
+ * @return {*}
+ */
+const Toast = (title = "成功", icon = "none", mask = true) => {
+  wx.showToast({
+    title,
+    icon,
+    duration: config.loading,
+    mask,
+  });
+};
+
+/**
+ * @description: Modal确认提示
  * @param {*} title 提示标题
  * @param {*} content 提示内容
  * @param {*} confirm 确认回调
  * @param {*} cancel 取消回调
  * @return {*}
  */
-const modal = (values) => {
+const Modal = (values) => {
   const {
     title = "",
     content = "",
     showCancel = true,
     cancelText = "取消",
-    cancelColor = "#000000",
+    cancelColor = "#999",
     confirmText = "确认",
     confirmColor = "#576B95",
     confirm = () => {},
@@ -128,11 +153,13 @@ const modal = (values) => {
   });
 };
 module.exports = {
-  formatTime,
+  formatDate,
   transformDate,
-  setCountdown,
+  diffTime,
   mathRound,
-  toast,
-  modal,
+  Toast,
+  Modal,
+  Loading,
+  hideLoading,
   cellphoneCheck,
 };

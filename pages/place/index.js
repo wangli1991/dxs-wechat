@@ -2,37 +2,38 @@
  * @Author: WangLi
  * @Date: 2021-04-29 05:48:15
  * @LastEditors: WangLi
- * @LastEditTime: 2021-05-13 04:46:30
+ * @LastEditTime: 2021-06-02 15:33:38
  */
 import { getPlaceList, creatOrder, getReceiverInfo } from "../../http/api";
-import { mathRound, toast } from "../../utils/util";
+import { mathRound, Toast } from "../../utils/util";
 const App = getApp();
 
 Page({
   data: {
     list: [],
     count: 0,
-    totalPrice: 0,
-    savePrice: 0,
-    payPrice: 0,
+    totalCost: 0,
+    payCost: 0,
+    couponCost: 0,
+    discountCost: 0,
     showEditDialog: false,
     orderUser: {},
     location: {},
+    placeType: null,
   },
-  onLoad: function (options) {
-    this.getReceiverInfo();
-    const eventChannel = this.getOpenerEventChannel();
-    eventChannel.on("key", (data) => {
-      this.getPlaceList(data.ids);
-    });
+  onLoad(options) {
+    const { ids, type } = App.router.extract(options);
     this.setData({
+      placeType: type,
       location: {
         latitude: App.globalData.latitude,
         longitude: App.globalData.longitude,
       },
     });
+    this.getReceiverInfo();
+    this.getPlaceList(ids);
   },
-  onShow: function () {},
+  onShow() {},
   async getReceiverInfo() {
     const { data } = await getReceiverInfo(App.globalData.userId);
     const { name, phone } = data;
@@ -40,64 +41,56 @@ Page({
       orderUser: { name, phone },
     });
   },
-  getPlaceList: async function (values) {
+  async getPlaceList(values) {
+    const { placeType } = this.data;
     const params = {
+      type: placeType,
       ids: values,
       userId: App.globalData.userId,
     };
     const { code, data, msg } = await getPlaceList(params);
-    if (code !== 200) {
-      toast("获取商品失败，请重试", "error");
-      return;
-    }
     this.setData({
-      list: data.dataList,
+      list: data.list,
       count: data.count,
     });
-    this.getTotalPrice();
+    this.getTotalCost();
   },
-  getTotalPrice: function () {
-    let totalPrice = 0,
-      marketPrice = 0;
-    const { list } = this.data;
+  getTotalCost() {
+    let sumCost = 0;
+    const { list, discountCost, couponCost } = this.data;
     list.forEach((item) => {
-      totalPrice += Number(item.product_sales_price) * item.count;
-      marketPrice += Number(item.product_market_price) * item.count;
+      sumCost += Number(item.sales_price) * item.count;
     });
-    const savePrice = marketPrice - totalPrice;
+    const payCost = sumCost - discountCost - couponCost;
     this.setData({
-      totalPrice: mathRound(totalPrice),
-      savePrice: mathRound(savePrice),
-      payPrice: mathRound(totalPrice),
+      sumCost: mathRound(sumCost),
+      payCost: mathRound(payCost),
     });
   },
-  editUserHandle: function () {
+  editUserHandle() {
     const { orderUser } = this.data;
     this.setData({
       showEditDialog: true,
       initialValues: orderUser,
     });
   },
-  editConfirmHandle: async function (e) {
+  editConfirmHandle(e) {
     const $this = this;
     const { name, phone } = e.detail;
-    console.log(name, phone);
     this.setData({
       orderUser: { name, phone },
     });
   },
-  closeDialogHandle: function (e) {
+  closeDialogHandle(e) {
     this.setData({
       showEditDialog: false,
     });
   },
-  payHandle: async function () {
-    const { orderUser, list, location } = this.data;
-    console.log(orderUser, list, location);
-    console.log(Date.now());
-    console.log(orderUser);
+  async placeOrderHandle() {
+    const { orderUser, list, location, placeType, couponCost, discountCost } =
+      this.data;
     if (!orderUser.name) {
-      toast("提货人信息不能为空");
+      Toast("提货人信息不能为空", "none");
       return;
     }
     const { code, msg, data } = await creatOrder({
@@ -106,7 +99,10 @@ Page({
       location,
       userId: App.globalData.userId,
       payStatus: false,
+      type: placeType,
+      couponCost,
+      discountCost,
     });
-    App.router.replace("order");
+    App.router.replace("order", { orderType: "" });
   },
 });

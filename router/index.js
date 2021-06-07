@@ -2,12 +2,12 @@
  * @Author: WangLi
  * @Date: 2021-04-14 09:52:20
  * @LastEditors: WangLi
- * @LastEditTime: 2021-04-29 06:01:00
+ * @LastEditTime: 2021-05-18 15:51:36
  */
 
 const routes = require("./routes.js");
 
-function push(name, data, events) {
+const push = (name, data) => {
   const dataStr = encodeURIComponent(JSON.stringify(data));
   const route = routes[name];
   const url = route ? route : `/pages/${name.replace(/\./g, "/")}/index`;
@@ -17,43 +17,40 @@ function push(name, data, events) {
       res.eventChannel.emit("key", data);
     },
   });
-}
+};
 
-function replace(name, data) {
+const replace = (name, data) => {
   const dataStr = encodeURIComponent(JSON.stringify(data));
   const route = routes[name];
   const url = route ? route : `/pages/${name.replace(/\./g, "/")}/index`;
   wx.redirectTo({
     url: `${url}?encodedData=${dataStr}`,
   });
-}
+};
 
-function replaceAll(name, data) {
+const replaceAll = (name, data) => {
   const dataStr = encodeURIComponent(JSON.stringify(data));
   const route = routes[name];
   const url = route ? route : `/pages/${name.replace(/\./g, "/")}/index`;
   wx.reLaunch({
     url: `${url}?encodedData=${dataStr}`,
   });
-}
+};
 
-function pushTab(name) {
-  const route = routes[name];
-  const url = route ? route : `/pages/${name.replace(/\./g, "/")}/index`;
-  wx.switchTab({
-    url: `${url}`,
-  });
-}
+const pushTab = (name, page) => {
+  wx.setStorageSync("tabbar", Number(page.pageIndex));
+  replaceAll(name, { page });
+};
 
-function back(data) {
+const back = (data) => {
   wx.navigateBack({
     delta: data,
   });
-}
+};
 
-function extract(options) {
+const extract = (options) => {
   return JSON.parse(decodeURIComponent(options.encodedData));
-}
+};
 
 module.exports = {
   push,

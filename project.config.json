@@ -8,23 +8,28 @@
         "es6": true,
         "enhance": true,
         "postcss": true,
+        "preloadBackgroundData": false,
         "minified": true,
         "newFeature": true,
         "coverView": true,
+        "nodeModules": true,
         "autoAudits": false,
+        "showShadowRootInWxmlPanel": true,
         "scopeDataCheck": false,
+        "uglifyFileName": false,
         "checkInvalidKey": true,
         "checkSiteMap": true,
         "uploadWithSourceMap": true,
+        "compileHotReLoad": false,
         "useMultiFrameRuntime": true,
         "useApiHook": true,
-        "useApiHostProcess": true,
+        "useApiHostProcess": false,
         "babelSetting": {
             "ignore": [],
             "disablePlugins": [],
             "outputPath": ""
         },
-        "bundle": false,
+        "enableEngineNative": false,
         "useIsolateContext": true,
         "useCompilerModule": true,
         "userConfirmedUseCompilerModuleSwitch": false,
@@ -36,28 +41,28 @@
                 "miniprogramNpmDistDir": "./"
             }
         ],
-        "minifyWXSS": true,
-        "nodeModules": true
+        "minifyWXSS": true
     },
     "compileType": "miniprogram",
-    "libVersion": "2.16.0",
-    "appid": "wxa675b69b70b0d0de",
+    "libVersion": "2.17.0",
+    "appid": "wx83651bf12be9aa8d",
     "projectname": "daxuesheng",
+    "cloudfunctionTemplateRoot": "",
+    "watchOptions": {
+        "ignore": []
+    },
     "debugOptions": {
         "hidedInDevtools": []
     },
-    "isGameTourist": false,
-    "simulatorType": "wechat",
-    "simulatorPluginLibVersion": {},
+    "scripts": {},
     "condition": {
-        "search": {
-            "list": []
-        },
-        "conversation": {
+        "plugin": {
             "list": []
         },
         "game": {
-            "currentL": -1,
+            "list": []
+        },
+        "gamePlugin": {
             "list": []
         },
         "miniprogram": {

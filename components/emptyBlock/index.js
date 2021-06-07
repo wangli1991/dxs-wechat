@@ -2,14 +2,14 @@
  * @Author: WangLi
  * @Date: 2021-05-09 06:16:04
  * @LastEditors: WangLi
- * @LastEditTime: 2021-05-09 06:27:50
+ * @LastEditTime: 2021-05-18 16:19:59
  */
 const App = getApp();
 Component({
   properties: {
     linkPage: {
-      type: String,
-      value: "home",
+      type: [String, Number],
+      value: 0,
     },
     linkText: {
       type: String,
@@ -32,7 +32,10 @@ Component({
         App.router.push(linkPage);
       }
       if (linkType === "pushTab") {
-        App.router.pushTab(linkPage);
+        App.router.pushTab("main", { pageIndex: linkPage });
+      }
+      if (linkType === "switchTab") {
+        this.triggerEvent("change", { pageIndex: linkPage });
       }
     },
   },

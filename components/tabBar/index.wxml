@@ -1,7 +1,10 @@
-<van-tabbar class="tab-bar" active="{{ selected }}" inactive-color="{{color}}" active-color="{{selectedColor}}" bind:change="onChange">
-  <van-tabbar-item class="tab-bar-item" wx:for="{{ list }}" wx:key="index" icon-prefix="icon" icon="{{ item.icon }}" info="{{item.info}}">
-    <image class="img" slot="icon" src="{{ item.iconPath }}" mode="aspectFit" />
-    <image class="img" slot="icon-active" src="{{ item.selectedIconPath }}" mode="aspectFit" />
-    <text class="text">{{item.text}}</text>
-  </van-tabbar-item>
-</van-tabbar>
+<view class="tab-bar">
+  <view class="tab-bar-border"></view>
+  <view wx:for="{{list}}" wx:key="index" class="tab-bar-item" data-index="{{index}}" bindtap="onChange">
+    <view class="info" wx:if="{{item.info}}">{{item.info}}</view>
+    <image class="img" src="{{active === index ? item.selectedIconPath : item.iconPath}}" mode="aspectFit" />
+    <view class="text" style="color: {{active === index ? selectedColor : color}}">
+      {{item.text}}
+    </view>
+  </view>
+</view>

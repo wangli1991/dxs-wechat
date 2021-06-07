@@ -1,23 +1,22 @@
-// components/loading/index.js
+/*
+ * @Author: WangLi
+ * @Date: 2021-05-13 10:33:58
+ * @LastEditors: WangLi
+ * @LastEditTime: 2021-05-27 06:07:21
+ */
+const App = getApp();
 Component({
-    /**
-     * 组件的属性列表
-     */
-    properties: {
-
+  properties: {
+    loading: {
+      type: Boolean,
+      value: false,
     },
-
-    /**
-     * 组件的初始数据
-     */
-    data: {
-
+  },
+  lifetimes: {
+    attached() {
+      this.setData({
+        navHeight: App.globalData.navHeight,
+      });
     },
-
-    /**
-     * 组件的方法列表
-     */
-    methods: {
-
-    }
-})
+  },
+});

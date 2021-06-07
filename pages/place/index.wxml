@@ -33,12 +33,12 @@
       <view class="place-item place-product">
         <view class="product-header flex-box">
           <text class="text">2021-01-01 16:00 可提货</text>
-          <text class="num">共{{count}}种</text>
+          <text class="num" wx:if="{{placeType==='cart'}}">共{{count}}种</text>
         </view>
         <view class="product-container">
           <view class="item" wx:for="{{list}}" wx:key="index">
             <view class="img-container">
-              <image class="img" src="../../images/cart_active.png" mode="aspectFit" lazy-load="true" />
+              <image class="img" src="../../images/product.png" mode="aspectFit" lazy-load="true" />
             </view>
             <view class="content">
               <view class="header">{{item.name}}</view>
@@ -61,14 +61,14 @@
           <view class="title">商品总额</view>
           <view class="price">
             <view class="unit">￥</view>
-            <view class="text ff-num">{{totalPrice}}</view>
+            <view class="text ff-num">{{sumCost}}</view>
           </view>
         </view>
-        <view class="item flex-box">
-          <view class="title">商品优惠</view>
+        <view class="item flex-box" wx:if="{{discountCost}}">
+          <view class="title">优惠金额</view>
           <view class="price save">
             <view class="unit">-￥</view>
-            <view class="text ff-num">{{savePrice}}</view>
+            <view class="text ff-num">{{discountCost}}</view>
           </view>
         </view>
       </view>
@@ -97,9 +97,9 @@
     <view class="title">待支付：</view>
     <view class="price">
       <text class="unit">￥</text>
-      <text class="num ff-num">{{payPrice}}</text>
+      <text class="num ff-num">{{payCost}}</text>
     </view>
   </view>
-  <view class="btn" bindtap="payHandle">立即支付</view>
+  <view class="btn" bindtap="placeOrderHandle">立即支付</view>
 </view>
 <edit-dialog show="{{showEditDialog}}" initial-value="{{initialValues}}" bind:close="closeDialogHandle" bind:confirm="editConfirmHandle" />

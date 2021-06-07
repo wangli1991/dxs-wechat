@@ -2,7 +2,7 @@
  * @Author: WangLi
  * @Date: 2021-04-06 20:53:18
  * @LastEditors: WangLi
- * @LastEditTime: 2021-05-15 20:58:16
+ * @LastEditTime: 2021-05-18 15:21:18
  */
 // 获取应用实例
 const App = getApp();
@@ -42,9 +42,7 @@ Component({
     },
   },
   observers: {
-    selected: function (value) {
-      console.log("tabbar==" + value);
-    },
+    selected(value) {},
   },
   methods: {
     getUserProfile(e) {

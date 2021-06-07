@@ -1,0 +1,102 @@
+<navbar-search wx:if="{{searching}}" search="{{searchVal}}" bindclear="searchClearHandle" />
+<nav-bar pageName="搜索" showNav bgColor="#fff" wx:else />
+<view class="search-container">
+  <block wx:if="{{!searching}}">
+    <view class="search-form">
+      <view class="search-input">
+        <text class="iconfont icon-search"></text>
+        <input class="input" type="text" value="{{ searchVal }}" placeholder="{{initVal}}" confirm-type="search" focus bindinput="changeHandle" bindconfirm="searchHandle" />
+      </view>
+      <view class="search-action" slot="action" bind:tap="searchHandle">搜索</view>
+    </view>
+    <view class="search-content" wx:if="{{!loading}}">
+      <view class="search-quick" wx:if="{{!searchVal}}">
+        <view class="quick-container history" wx:if="{{historyCount}}">
+          <view class="header">
+            <view class="title">搜索历史</view>
+            <view class="action" bindtap="clearSearchHistoryHandle">
+              <text class="iconfont icon-delete"></text>
+              <text class="text">清除历史</text>
+            </view>
+          </view>
+          <view class="content">
+            <block wx:for="{{historyList}}" wx:key="index">
+              <view class="item" data-text="{{item.name}}" bindtap="searchTapHandle">
+                {{item.name}}
+              </view>
+            </block>
+          </view>
+        </view>
+        <view class="quick-container">
+          <view class="header">
+            <view class="title">搜索发现</view>
+          </view>
+          <view class="content">
+            <block wx:for="{{hotList}}" wx:key="index">
+              <view class="item" data-text="{{item.name}}" bindtap="searchTapHandle">
+                {{item.name}}
+              </view>
+            </block>
+          </view>
+        </view>
+      </view>
+      <view class="search-keyword" wx:if="{{searchVal}}">
+        <block wx:for="{{keywordList}}" wx:key="index">
+          <view class="item" data-text="{{item.name}}" bindtap="searchTapHandle">
+            <rich-text nodes="{{item.keyword}}"></rich-text>
+          </view>
+        </block>
+      </view>
+    </view>
+  </block>
+  <view class="search-product" wx:else>
+    <view class="head">
+      <block wx:for="{{sortList}}" wx:key="index">
+        <view class="head-item {{index==currentSort?'active':''}}" data-index="{{index}}" bindtap="sortTap">
+          <view class="text">{{item.name}}</view>
+          <view class="icons" wx:if="{{item.can_sort}}">
+            <view class="item">
+              <text class="iconfont icon-sort-up {{sortType>0?'active':''}}"></text>
+            </view>
+            <view class="item">
+              <text class="iconfont icon-sort-down {{sortType<0?'active':''}}"></text>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+    <view class="products">
+      <pull-refresh class="pull-refresh" backTopEnable="{{true}}" refresherEnable="{{false}}" bindscrolltolower="scrolltolowerHandle" scroll-top="{{scrollTop}}" nomore="{{!loadMore}}" loadmoreText="{{loadMoreText}}">
+        <block wx:for="{{productList}}" wx:key="index">
+          <view class="item" data-id="{{item.id}}" bindtap="productTap">
+            <view class="img-container">
+              <image class="img" src="../../images/product.png" mode="aspectFit" lazy-load="true" />
+            </view>
+            <view class="content">
+              <view class="header app-fz30">
+                <view class="title">{{item.name}}</view>
+                <view class="tag discount">
+                  {{item.full_reduction_count}}件{{item.full_reduction_cost}}元
+                </view>
+              </view>
+              <view class="footer">
+                <view class="tag">{{item.discount}}折优惠</view>
+                <view class="buy">
+                  <view class="buy-price">
+                    <text class="now app-fz30">
+                      <text class="unit ff-num app-fz22">￥</text>
+                      <text class="ff-num">{{item.sales_price}}</text>
+                    </text>
+                    <text class="old ff-num app-fz20 app-line-through">￥{{item.market_price}}</text>
+                  </view>
+                  <view class="btn" data-product="{{item.id}}" catchtap="addCartHandle">加入购物车</view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </block>
+      </pull-refresh>
+    </view>
+  </view>
+</view>
+<loading loading="{{loading}}" />

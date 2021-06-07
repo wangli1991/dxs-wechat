@@ -1,0 +1,48 @@
+<view class="recommend">
+  <block wx:for="{{list}}" wx:key="index">
+    <view class="base-card item" data-id="{{item.id}}" bindtap="productTap">
+      <view class="img-container">
+        <image class="img" src="../../images/product.png" mode="aspectFit" lazy-load="true" />
+      </view>
+      <view class="content">
+        <view class="header app-fz30">
+          <view class="title">{{item.name}}</view>
+          <view class="tag discount">
+            <text class="ff-num">{{item.full_reduction_count}}</text>
+            <text>件</text>
+            <text class="ff-num">{{item.full_reduction_cost}}</text>
+            <text>元</text>
+          </view>
+        </view>
+        <view class="footer">
+          <view class="tag">
+            <text class="ff-num">{{item.discount}}</text>
+            <text>折优惠</text>
+          </view>
+          <view class="buy">
+            <view class="buy-price">
+              <view class="now app-fz30">
+                <text class="unit ff-num app-fz22">￥</text>
+                <text class="ff-num">{{item.sales_price}}</text>
+              </view>
+              <view class="old ff-num app-fz20 app-line-through">
+                <text>￥</text>
+                <text class="ff-num">{{item.market_price}}</text>
+              </view>
+            </view>
+            <view class="buy-cart" data-id="{{item.id}}" catchtap="addCartHandle">
+              <text class="iconfont icon-add-cart"></text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="more flex flex-justify-between flex-align-center" data-classify="{{item.classify}}" catchtap="goMain">
+        <view class="title">{{item.classify_name}}专区</view>
+        <view class="action">
+          <text class="text">逛-逛</text>
+          <text class="iconfont icon-dir-right"></text>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

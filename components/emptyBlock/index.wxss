@@ -1,5 +1,5 @@
 .empty-block {
-  height: 50%;
+  height: 450rpx;
   display: flex;
   flex-direction: column;
   align-items: center;

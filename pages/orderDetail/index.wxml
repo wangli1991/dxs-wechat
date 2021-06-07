@@ -1,185 +1,139 @@
 <nav-bar pageName="订单详情" showNav bgColor="#fff" />
 <view class="container">
-  <view class="order-header waiting">
-    <!-- <view class="title">
-      <icon class="icon" type="clear" size="50rpx"></icon>
-      <view class="text">交易关闭</view>
-    </view> -->
-    <!-- <view class="title">
-      <icon class="icon" type="success" size="50rpx"></icon>
-      <view class="text">提货成功</view>
-    </view> -->
-    <view class="title">
-      <icon class="icon" type="waiting" size="50rpx" color="#f00"></icon>
-      <view class="text">等待付款</view>
-      <view class="time">剩余：06分10秒</view>
+  <pull-refresh class="pull-refresh" bindscrolltolower="scrolltolowerHandle" nomore="{{!loadMore}}" loadmoreText="{{loadMoreText}}">
+    <view class="order-header waiting">
+      <view class="title" wx:if="{{orderData.status===0}}">
+        <icon class="icon" type="waiting" size="50rpx" color="#ff3634"></icon>
+        <view class="text">等待付款</view>
+        <view class="time">
+          剩余：
+          <count-down end="{{orderData.pay_end_time}}" format="m分s秒" bindend="countDownEndHandle" clear-timer="{{clearTimer}}"></count-down>
+        </view>
+      </view>
+      <view class="title" wx:elif="{{orderData.status===1}}">
+        <icon class="icon" type="success" size="50rpx"></icon>
+        <view class="text">待发货</view>
+      </view>
+      <view class="title" wx:elif="{{orderData.status===2}}">
+        <icon class="icon" type="success" size="50rpx"></icon>
+        <view class="text">待收货</view>
+      </view>
+      <view class="title" wx:elif="{{orderData.status===3}}">
+        <icon class="icon" type="success" size="50rpx"></icon>
+        <view class="text">提货成功</view>
+      </view>
+      <view class="title" wx:else>
+        <icon class="icon" type="clear" size="50rpx"></icon>
+        <view class="text">交易关闭</view>
+      </view>
+      <view class="desc">{{statusDescription}}</view>
     </view>
-    <view class="desc">超时未支付超时未支付</view>
-  </view>
-  <scroll-view class="order-scroll" scroll-y="true">
-    <view class="order-container">
-      <view class="base-card order-item">
-        <view class="flex flex-justify-between flex-align-center">
-          <view class="flex flex-align-center">
-            <view class="title">收货人：</view>
-            <view class="value">大学 17704305401</view>
-          </view>
-        </view>
-        <view class="flex flex-justify-between flex-align-center">
-          <view class="flex flex-align-center">
-            <view class="title">提货点：</view>
-            <view class="value">大学</view>
-          </view>
-          <view class="action">
-            <text class="iconfont icon-dir-right"></text>
-            <text class="text">联系团长</text>
-          </view>
-        </view>
-        <view class="flex flex-justify-between address">
-          <view class="flex flex-full">
-            <view class="title">提货点：</view>
-            <view class="desc">联系团长联系团长联系团长联系团长联系团长联系团长联系团长联系团长联系团长联系团长联系团长联系团长联系团长</view>
-          </view>
-          <view class="action">
-            <text class="iconfont icon-dir-right"></text>
-            <text class="text">导航前往</text>
-          </view>
-        </view>
-      </view>
-      <view class="base-card order-item product">
-        <view class="item">
-          <view class="flex">
-            <image class="product-img" src="../../images/cart_active.png" mode="aspectFit" lazy-load="true" />
-            <view class="content flex-full">
-              <view class="product-title">
-                联系团长联系团长联系团长联系团长联系团长联系团长联系团长联系团长联系团长联系团长联系团长联系团长联系团长
-              </view>
-              <view class="product-text">
-                <text>单价：</text>
-                <text class="ff-num">￥8.88</text>
-              </view>
-              <view class="product-text">
-                <text>数量：</text>
-                <text class="ff-num">1</text>
-              </view>
+    <scroll-view class="order-scroll" scroll-y="true">
+      <view class="order-container">
+        <view class="base-card order-item">
+          <view class="flex flex-justify-between flex-align-center">
+            <view class="flex flex-align-center">
+              <view class="title">收货人：</view>
+              <view class="value">{{orderData.receiver}} {{orderData.receiver_tel}}</view>
             </view>
-            <view class="product-price ff-num">￥8.88</view>
           </view>
-          <view class="product-status">已关单</view>
-        </view>
-        <view class="item">
-          <view class="flex">
-            <image class="product-img" src="../../images/cart_active.png" mode="aspectFit" lazy-load="true" />
-            <view class="content flex-full">
-              <view class="product-title">
-                联系团长联系团长联系团长联系团长联系团长联系团长联系团长联系团长联系团长联系团长联系团长联系团长联系团长
-              </view>
-              <view class="product-text">
-                <text>单价：</text>
-                <text class="ff-num">￥8.88</text>
-              </view>
-              <view class="product-text">
-                <text>数量：</text>
-                <text class="ff-num">1</text>
-              </view>
+          <view class="flex flex-justify-between flex-align-center">
+            <view class="flex flex-align-center">
+              <view class="title">提货点：</view>
+              <view class="value">大学</view>
             </view>
-            <view class="product-price ff-num">￥8.88</view>
-          </view>
-          <view class="product-status">已关单</view>
-        </view>
-      </view>
-      <view class="base-card order-item price">
-        <view class="flex flex-justify-between flex-align-center">
-          <view class="title">商品总额</view>
-          <view class="value ff-num">￥8.88</view>
-        </view>
-        <view class="border-t flex flex-justify-between flex-align-center">
-          <view class="title">实际付款</view>
-          <view class="value ff-num">￥8.88</view>
-        </view>
-      </view>
-      <view class="base-card order-item order">
-        <view class="flex flex-justify-between flex-align-center">
-          <view class="title">订单编号：</view>
-          <view class="flex flex-align-center">
-            <view class="num ff-num">123456789</view>
-            <view class="action" bindtap="copyHandle">复制</view>
-          </view>
-        </view>
-        <view class="flex flex-justify-between flex-align-center">
-          <view class="title">下单时间：</view>
-          <view class="num ff-num">123456789</view>
-        </view>
-      </view>
-      <view class="base-card order-item kefu">
-        <view class="flex flex-justify-between flex-align-center header">
-          <view class="flex flex-full">
-            <view class="title">对订单有疑问？</view>
-          </view>
-          <view class="action">
-            <text class="text">咨询在线客服</text>
-            <text class="iconfont icon-dir-right"></text>
-          </view>
-        </view>
-        <view class="btns">
-          <view class="btn">如何取货</view>
-          <view class="btn">如何取货</view>
-          <view class="btn">如何取货</view>
-        </view>
-      </view>
-    </view>
-    <view class="product-recommend">
-      <view class="recommend-title">商品推荐</view>
-      <view class="recommend-container">
-        <block wx:for="{{recomandList}}" wx:key="index">
-          <view class="base-card recommend-item">
-            <view class="img-container">
-              <image class="img" src="../../images/cart_active.png" mode="aspectFit" lazy-load="true" />
+            <view class="action">
+              <text class="text">联系团长</text>
+              <text class="iconfont icon-dir-right"></text>
             </view>
-            <view class="content">
-              <view class="header app-fz30">
-                <view class="title">{{item.name}}</view>
-                <view class="tag discount">
-                  <text class="ff-num">{{item.full_reduction_count}}</text>
-                  <text>件</text>
-                  <text class="ff-num">{{item.full_reduction_cost}}</text>
-                  <text>元</text>
-                </view>
-              </view>
-              <view class="footer">
-                <view class="tag">
-                  <text class="ff-num">{{item.discount}}</text>
-                  <text>折优惠</text>
-                </view>
-                <view class="buy">
-                  <view class="buy-price">
-                    <view class="now app-fz30">
-                      <text class="unit ff-num app-fz22">￥</text>
-                      <text class="ff-num">{{item.sales_price}}</text>
-                    </view>
-                    <view class="old ff-num app-fz20 app-line-through">
-                      <text>￥</text>
-                      <text class="ff-num">{{item.market_price}}</text>
-                    </view>
+          </view>
+          <view class="flex flex-justify-between address">
+            <view class="flex flex-full">
+              <view class="title">提货点：</view>
+              <view class="desc">联系团长联系团长联系团长联系团长联系团长联系团长联系团长联系团长联系团长联系团长联系团长联系团长联系团长</view>
+            </view>
+            <view class="action" bindtap="goMap">
+              <text class="text">导航前往</text>
+              <text class="iconfont icon-dir-right"></text>
+            </view>
+          </view>
+        </view>
+        <view class="base-card order-item product">
+          <block wx:for="{{orderData.children}}" wx:key="index">
+            <view class="item">
+              <view class="flex">
+                <image class="product-img" src="../../images/product.png" mode="aspectFit" lazy-load="true" />
+                <view class="content flex-full">
+                  <view class="product-title">{{item.name}}</view>
+                  <view class="product-text">
+                    <text>单价：</text>
+                    <text class="ff-num">￥{{item.sales_price}}</text>
                   </view>
-                  <view class="buy-cart">
-                    <text class="iconfont icon-add-cart"></text>
+                  <view class="product-text">
+                    <text>数量：</text>
+                    <text class="ff-num">{{item.count}}</text>
                   </view>
                 </view>
+                <view class="product-price ff-num">￥{{item.sum_price}}</view>
               </view>
+              <view class="product-status" wx:if="{{item.status>2}}">已关单</view>
             </view>
-            <view class="more flex flex-justify-between flex-align-center">
-              <view class="title">新鲜蔬菜专区</view>
-              <view class="action">
-                <text class="text">逛逛</text>
-                <text class="iconfont icon-dir-right"></text>
-              </view>
+          </block>
+        </view>
+        <view class="base-card order-item price">
+          <view class="{{orderData.discount_cost?'pay':''}}">
+            <view class="flex flex-justify-between flex-align-center">
+              <view class="title">商品总额</view>
+              <view class="value ff-num">￥{{orderData.sum_cost}}</view>
+            </view>
+            <view class="flex flex-justify-between flex-align-center" wx:if="{{orderData.discount_price}}">
+              <view class="title">优惠金额</view>
+              <view class="value ff-num">￥{{orderData.discount_cost}}</view>
             </view>
           </view>
-        </block>
+          <view class="border-t flex flex-justify-between flex-align-center">
+            <view class="title">实际付款</view>
+            <view class="value ff-num">￥{{orderData.pay_cost}}</view>
+          </view>
+        </view>
+        <view class="base-card order-item order">
+          <view class="flex flex-justify-between flex-align-center">
+            <view class="title">订单编号：</view>
+            <view class="flex flex-align-center">
+              <view class="num ff-num">{{orderData.order_no}}</view>
+              <view class="action" data-no="{{orderData.order_no}}" bindtap="copyHandle">复制</view>
+            </view>
+          </view>
+          <view class="flex flex-justify-between flex-align-center">
+            <view class="title">下单时间：</view>
+            <view class="num ff-num">{{orderData.creat_time}}</view>
+          </view>
+        </view>
+        <view class="base-card order-item kefu">
+          <view class="flex flex-justify-between flex-align-center header">
+            <view class="flex flex-full">
+              <view class="title">对订单有疑问？</view>
+            </view>
+            <view class="action">
+              <text class="text">咨询在线客服</text>
+              <text class="iconfont icon-dir-right"></text>
+            </view>
+          </view>
+          <view class="btns">
+            <view class="btn">如何取货</view>
+            <view class="btn">如何取货</view>
+            <view class="btn">如何取货</view>
+          </view>
+        </view>
       </view>
-    </view>
-  </scroll-view>
+      <view class="product-recommend">
+        <view class="recommend-title">商品推荐</view>
+        <view class="recommend-container">
+          <recommend list="{{productList}}" />
+        </view>
+      </view>
+    </scroll-view>
+  </pull-refresh>
 </view>
 <view class="order-footer">
   <view class="btn active">去支付</view>

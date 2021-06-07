@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "back-top": "../backTop",
+    "mp-loading": "weui-miniprogram/loading/loading"
+  }
+}

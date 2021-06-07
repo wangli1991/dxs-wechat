@@ -1,0 +1,4 @@
+<view class="back-top" bindtap="backTop" wx:if="{{show}}" style="{{style}}">
+  <view class="iconfont icon-backtop"></view>
+  <view class="text">顶部</view>
+</view>

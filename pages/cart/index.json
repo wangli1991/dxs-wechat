@@ -1,3 +1,8 @@
 {
-  "usingComponents": {"base-dialog":"../../components/baseDialog","empty-block":"../../components/emptyBlock","van-popup": "@vant/weapp/popup/index"}
+  "usingComponents": {
+    "base-dialog":"../../components/baseDialog",
+    "empty-block":"../../components/emptyBlock",
+    "recommend": "../../components/recommend",
+    "pull-refresh":"../../components/pullRefresh/index"
+  }
 }

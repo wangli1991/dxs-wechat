@@ -13,10 +13,10 @@
     </view>
   </view>
 </view>
-<view class="container">
-  <scroll-view class="product-scroll" scroll-y="true" scroll-with-animation="true" scroll-top="{{scrollTop}}" bindscroll="scrollHandle" bindscrolltoupper="scrollToToupper" bindscrolltolower="scrollToLower">
+<view class="container product">
+  <scroll-view class="product-scroll" scroll-y="true" scroll-with-animation="{{true}}" scroll-into-view="{{intoView}}" scroll-top="{{scrollTop}}" bindscroll="scrollHandle" bindscrolltoupper="scrollToToupper" bindscrolltolower="scrollToLower">
     <view class="product-container">
-      <view class="carousel-container">
+      <view class="carousel-container" id="product0">
         <swiper class="carousel-swiper" bindchange="carouselChange">
           <block wx:for="{{carouselList}}" wx:key="index">
             <swiper-item>
@@ -92,6 +92,7 @@
           </view>
         </view>
         <view class="product-info bcbr">
+          <view class="into-view" style="height:calc({{navHeight}}px + 20rpx);top:calc(-{{navHeight}}px - 20rpx)" id="product1"></view>
           <view class="info-title">商品信息</view>
           <view class="info-content">
             <view class="item" wx:if="{{product.brand}}">
@@ -152,54 +153,10 @@
         </view>
       </view>
       <view class="product-recommend">
+        <view class="into-view" style="height:calc({{navHeight}}px + 20rpx);top:calc(-{{navHeight}}px - 20rpx)" id="product2"></view>
         <view class="recommend-title">商品推荐</view>
         <view class="recommend-container">
-          <block wx:for="{{recomandList}}" wx:key="index">
-            <view class="base-card recommend-item">
-              <view class="img-container">
-                <image class="img" src="../../images/cart_active.png" mode="aspectFit" lazy-load="true" />
-              </view>
-              <view class="content">
-                <view class="header app-fz30">
-                  <view class="title">{{item.name}}</view>
-                  <view class="tag discount">
-                    <text class="ff-num">{{item.full_reduction_count}}</text>
-                    <text>件</text>
-                    <text class="ff-num">{{item.full_reduction_cost}}</text>
-                    <text>元</text>
-                  </view>
-                </view>
-                <view class="footer">
-                  <view class="tag">
-                    <text class="ff-num">{{item.discount}}</text>
-                    <text>折优惠</text>
-                  </view>
-                  <view class="buy">
-                    <view class="buy-price">
-                      <view class="now app-fz30">
-                        <text class="unit ff-num app-fz22">￥</text>
-                        <text class="ff-num">{{item.sales_price}}</text>
-                      </view>
-                      <view class="old ff-num app-fz20 app-line-through">
-                        <text>￥</text>
-                        <text class="ff-num">{{item.market_price}}</text>
-                      </view>
-                    </view>
-                    <view class="buy-cart">
-                      <text class="iconfont icon-add-cart"></text>
-                    </view>
-                  </view>
-                </view>
-              </view>
-              <view class="more">
-                <view class="title">新鲜蔬菜专区</view>
-                <view class="action">
-                  <text class="text">逛逛</text>
-                  <text class="iconfont icon-dir-right"></text>
-                </view>
-              </view>
-            </view>
-          </block>
+          <recommend list="{{productList}}" />
         </view>
       </view>
       <view class="share-container">
@@ -208,23 +165,24 @@
       </view>
     </view>
   </scroll-view>
-</view>
-<view class="product-footer">
-  <view class="actions">
-    <view class="item">
-      <view class="iconfont icon-home"></view>
-      <view class="text">首页</view>
-    </view>
-    <view class="item">
-      <view class="iconfont icon-cart">
-        <view class="dot">2</view>
+  <back-top show="{{showBackTop}}" dir="left" bind:backtop="scrollBackTop" />
+  <view class="product-footer">
+    <view class="actions">
+      <view class="item" data-index="0" bindtap="goMain">
+        <view class="iconfont icon-home"></view>
+        <view class="text">首页</view>
       </view>
-      <view class="text">购物车</view>
+      <view class="item" data-index="2" bindtap="goMain">
+        <view class="iconfont icon-cart">
+          <view class="dot" wx:if="{{cartCount}}">{{cartCount}}</view>
+        </view>
+        <view class="text">购物车</view>
+      </view>
     </view>
-  </view>
-  <view class="btns">
-    <view class="item btn-cart">加入购物车</view>
-    <view class="item btn-place">立即购买</view>
+    <view class="btns">
+      <view class="item btn-cart" bindtap="addCartHandle">加入购物车</view>
+      <view class="item btn-place" bindtap="placeHandle">立即购买</view>
+    </view>
   </view>
 </view>
 <bottom-popup show="{{showTips}}" bind:close="closePopupHandle">
@@ -241,7 +199,3 @@
     </view>
   </view>
 </bottom-popup>
-<view class="back-top" bindtap="scrollBackTop" wx:if="{{showBackTop}}">
-  <view class="iconfont icon-backtop"></view>
-  <view class="text">顶部</view>
-</view>

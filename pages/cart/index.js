@@ -2,11 +2,16 @@
  * @Author: WangLi
  * @Date: 2021-04-22 06:51:42
  * @LastEditors: WangLi
- * @LastEditTime: 2021-05-15 20:57:10
+ * @LastEditTime: 2021-06-07 11:07:58
  */
 import config from "../../config/index";
-import { getCartList, updateCart, deleteCart } from "../../http/api";
-import { mathRound, toast, modal } from "../../utils/util";
+import {
+  getCartList,
+  updateCart,
+  deleteCart,
+  getRecommendProducts,
+} from "../../http/api";
+import { mathRound, Modal } from "../../utils/util";
 const App = getApp();
 Component({
   options: {
@@ -14,6 +19,9 @@ Component({
   },
   properties: {
     selected: {
+      type: Number,
+    },
+    cartChange: {
       type: Number,
     },
   },
@@ -37,6 +45,13 @@ Component({
     showNum: false,
     editCart: false,
     cartEmpty: config.cartEmpty,
+    productList: [],
+    productTotal: 0,
+    currentPage: 1,
+    pageSize: config.recommendPageSize,
+    loadLoding: false,
+    loadMore: true,
+    loadMoreText: "加载中",
   },
   lifetimes: {
     attached(options) {
@@ -49,38 +64,46 @@ Component({
     },
   },
   observers: {
-    selected: function (value) {
-      console.log("tabbar==" + value);
+    selected(value) {
+      if (value === 2) {
+        this.getCartList();
+        this.getProductList();
+      }
+    },
+    cartChange() {
       this.getCartList();
     },
   },
   methods: {
-    getCartList: async function (params) {
+    tabbarChange(e) {
+      this.triggerEvent("tabchange", { pageIndex: e.detail.pageIndex });
+    },
+    async getCartList(params) {
       const { data, code, msg } = await getCartList({
         userId: App.globalData.userId,
       });
-      const { count, dataList } = data;
+      const { count, list } = data;
       let salesCount = 0,
         salesEndCount = 0,
         selectedCount = 0,
         salesList = [],
         salesEndList = [];
       if (count) {
-        salesList = dataList.filter((x) => x.sales_status === 1 && x.stock > 0);
+        salesList = list.filter((x) => x.sales_status === 1 && x.stock > 0);
         salesCount = salesList.length;
         salesList.forEach((x) => {
           x.selected = true;
           selectedCount++;
         });
 
-        salesEndList = dataList.filter(
+        salesEndList = list.filter(
           (x) => x.sales_status === 0 && x.stock === 0
         );
         salesEndCount = salesEndList.length;
       }
 
       this.setData({
-        cartList: count ? dataList : [],
+        cartList: count ? list : [],
         cartCount: count,
         salesList,
         salesCount,
@@ -91,15 +114,15 @@ Component({
       this.getSelectedAll();
       this.getTotalPrice();
     },
-    showAll: function () {
+    showAll() {
       this.setData({
         showAll: !this.data.showAll,
       });
     },
-    inputChange: function (e) {
+    inputChange(e) {
       const index = e.currentTarget.dataset.index;
     },
-    cartNumHandle: function (e) {
+    cartNumHandle(e) {
       const { salesList } = this.data;
       const index = e.currentTarget.dataset.index;
       const salesData = salesList[index];
@@ -108,12 +131,12 @@ Component({
         selectedValues: { id: salesData.id, count: salesData.count },
       });
     },
-    closeDialogHandle: function (e) {
+    closeDialogHandle(e) {
       this.setData({
         showNum: false,
       });
     },
-    numConfirmHandle: async function (e) {
+    async numConfirmHandle(e) {
       const $this = this;
       const { id, count } = e.detail;
       const { salesList } = this.data;
@@ -124,29 +147,25 @@ Component({
         userId: App.globalData.userId,
       };
       if (!count) {
-        modal({
+        Modal({
           content: "确认删除这个商品吗",
           cancelText: "我再想想",
           confirmText: "确认删除",
           confirm() {
-            $this.cartDeleteHandle(salesData[0].id);
+            $this.deleteCartHandle(salesData[0].id);
           },
           cancel() {},
         });
         return;
       }
       const { code, data, msg } = await updateCart(params);
-      if (code !== 200) {
-        toast("添加购物车失败，请重试", "error");
-        return;
-      }
       salesData[0].count = count;
       this.setData({
         salesList,
       });
-      this.getTotalPrice();
+      this.updateCartHandle();
     },
-    minusHandle: async function (e) {
+    async minusHandle(e) {
       const $this = this;
       const { salesList } = this.data;
       const index = e.currentTarget.dataset.index;
@@ -154,12 +173,12 @@ Component({
       let count = salesData.count;
       count--;
       if (count < 1) {
-        modal({
+        Modal({
           content: "确认删除这个商品吗",
           cancelText: "我再想想",
           confirmText: "确认删除",
           confirm() {
-            $this.cartDeleteHandle(salesData.id);
+            $this.deleteCartHandle(salesData.id);
           },
           cancel() {},
         });
@@ -171,18 +190,14 @@ Component({
         userId: App.globalData.userId,
       };
       const { code, data, msg } = await updateCart(params);
-      if (code !== 200) {
-        toast("添加购物车失败，请重试", "error");
-        return;
-      }
       salesData.count = count;
       salesData.selected = true;
       this.setData({
         salesList,
       });
-      this.getTotalPrice();
+      this.updateCartHandle();
     },
-    addHandle: async function (e) {
+    async addHandle(e) {
       const { salesList } = this.data;
       const index = e.currentTarget.dataset.index;
       const salesData = salesList[index];
@@ -195,17 +210,13 @@ Component({
         userId: App.globalData.userId,
       };
       const { code, data, msg } = await updateCart(params);
-      if (code !== 200) {
-        toast("添加购物车失败，请重试", "error");
-        return;
-      }
       salesData.selected = true;
       this.setData({
         salesList,
       });
-      this.getTotalPrice();
+      this.updateCartHandle();
     },
-    cartDeleteHandle: async function (value) {
+    async deleteCartHandle(value) {
       const ids = value.toString().split(",");
       const delLen = ids.length;
       const { salesList, salesCount, selectedCount } = this.data;
@@ -215,10 +226,6 @@ Component({
         userId: App.globalData.userId,
       };
       const { code, data, msg } = await deleteCart(params);
-      if (code !== 200) {
-        toast("删除购物车失败，请重试", "error");
-        return;
-      }
       const updateSalesData = salesList.filter((x) =>
         delLen > 1 ? !ids.includes(x.id) : x.id != value
       );
@@ -229,6 +236,10 @@ Component({
         editCart: false,
       });
       this.getSelectedAll();
+      this.updateCartHandle();
+    },
+    updateCartHandle() {
+      this.triggerEvent("updateCart", true);
       this.getTotalPrice();
     },
     cartSelect(e) {
@@ -290,15 +301,14 @@ Component({
         savePrice: mathRound(savePrice),
       });
     },
-    goProduct: function (e) {
+    goProduct(e) {
       const productId = e.currentTarget.dataset.proid;
-      App.router.push("product", { id: productId });
+      App.router.push("product", { productId });
     },
     goHome() {
-      // App.router.pushTab("home");
-      App.router.push("place");
+      App.router.pushTab("main", { pageIndex: 0 });
     },
-    editCartHandle() {
+    editHandle() {
       const { editCart } = this.data;
       this.setData({
         editCart: !editCart,
@@ -311,23 +321,75 @@ Component({
         return;
       }
       const ids = salesList.filter((x) => x.selected).map((x) => x.id);
-      modal({
+      Modal({
         content: "确认删除选择的商品吗",
         cancelText: "我再想想",
         confirmText: "确认删除",
         confirm() {
-          $this.cartDeleteHandle(ids);
+          $this.deleteCartHandle(ids);
         },
         cancel() {},
       });
     },
-    cartPlace: function () {
+    cartPlace() {
       const { selectedCount, salesList } = this.data;
       if (!selectedCount) {
         return;
       }
-      const ids = salesList.filter((x) => x.selected).map((x) => x.id);
-      App.router.push("place", { ids });
+      const ids = salesList
+        .filter((x) => x.selected)
+        .map((x) => x.id)
+        .join(",");
+      App.router.push("place", { ids, type: "cart" });
+    },
+    async getProductList() {
+      this.setData({
+        loadMore: true,
+      });
+      const { currentPage, pageSize, productList } = this.data;
+
+      const params = {
+        recommend: 2,
+        currentPage,
+        pageSize,
+      };
+      const { code, data, msg } = await getRecommendProducts(params);
+      let products;
+      if (currentPage === 1) {
+        this.setData({
+          productTotal: data.total,
+        });
+        if (pageSize >= data.total) {
+          this.setData({
+            loadMore: false,
+          });
+        }
+        products = data.list;
+      } else {
+        products = productList.concat(data.list);
+      }
+      this.setData({ productList: products });
+    },
+    scrolltolowerHandle(e) {
+      const { loadLoding } = this.data;
+      if (loadLoding) {
+        return;
+      }
+      const { currentPage, pageSize, productTotal } = this.data;
+      const loadMore = productTotal - currentPage * pageSize;
+      if (loadMore > 0) {
+        this.setData({
+          currentPage: currentPage + 1,
+        });
+        this.getProductList();
+      } else {
+        this.setData({
+          loadMore: false,
+        });
+      }
+    },
+    updateCartHandle() {
+      this.triggerEvent("updateCart", true);
     },
   },
 });

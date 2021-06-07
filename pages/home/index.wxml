@@ -1,26 +1,143 @@
+<view style="position:fixed;z-index:-1;opacity:0;">
+  <count-down end="{{todayTime}}" format="h:m:s" bindend="todayEnd" clear-timer="{{clearTimer}}"></count-down>
+</view>
 <view class="component-container" hidden="{{selected!==0}}">
+  <view class="header">
+    <navbar-main title="首页" color="#fff" />
+  </view>
   <view class="container">
-    <view class="userinfo">
-      <block wx:if="{{canIUseOpenData}}" calss="userinfo-opendata">
-        <view class="userinfo-avatar">
-          <open-data type="userAvatarUrl"></open-data>
+    <pull-refresh class="pull-refresh" refresherEnable="{{false}}" bindrefresherrefresh="refreshHandle" refreshing="{{isRefreshing}}" bindscrolltolower="scrolltolowerHandle" nomore="{{!loadMore}}" loadmoreText="{{loadMoreText}}">
+      <view class="home-top">
+        <view class="home-desc">
+          <view class="item">
+            <text class="iconfont icon-home-active"></text>
+            <text class="text">描述文字</text>
+          </view>
+          <view class="item">
+            <text class="iconfont icon-home-active"></text>
+            <text class="text">描述文字</text>
+          </view>
+          <view class="item">
+            <text class="iconfont icon-home-active"></text>
+            <text class="text">描述文字</text>
+          </view>
         </view>
-        <open-data type="userNickName"></open-data>
-      </block>
-      <block wx:elif="{{!hasUserInfo}}">
-        <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile">
-          获取头像昵称{{timestamp}}
-        </button>
-        <button wx:elif="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">
-          获取头像昵称
-        </button>
-        <view wx:else>请使用1.4.4及以上版本基础库</view>
-      </block>
-      <block wx:else>
-        <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-      </block>
-    </view>
-    <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile">获取头像昵称</button>
+        <view class="swiper-container">
+          <swiper indicator-dots="{{indicatorDots}}" indicator-color="rgba(255,255,255,.3)" indicator-active-color="#fff" autoplay="true" circular="true" interval="{{interval}}" duration="{{duration}}">
+            <block wx:for="{{bannerList}}" wx:key="index">
+              <swiper-item>
+                <image class="img" src="../../images/banner.jpg" mode="aspectFill" lazy-load="true" />
+              </swiper-item>
+            </block>
+          </swiper>
+        </view>
+        <view class="home-classify">
+          <scroll-view class="scroll-classify" scroll-x="true" bindscroll="classifyScrollHandle" upper-threshold="5" lower-threshold="5" bindscrolltoupper="classifyScrollUp" bindscrolltolower="classifyScrollLower">
+            <view class="item">
+              <view class="content">
+                <image class="img" src="../../images/product.png" mode="scaleToFill" lazy-load="true" />
+                <view class="text">分类列表</view>
+              </view>
+            </view>
+            <view class="item">
+              <view class="content">
+                <image class="img" src="../../images/product.png" mode="scaleToFill" lazy-load="true" />
+                <view class="text">分类列表</view>
+              </view>
+            </view>
+            <view class="item">
+              <view class="content">
+                <image class="img" src="../../images/product.png" mode="scaleToFill" lazy-load="true" />
+                <view class="text">分类列表</view>
+              </view>
+            </view>
+            <view class="item">
+              <view class="content">
+                <image class="img" src="../../images/product.png" mode="scaleToFill" lazy-load="true" />
+                <view class="text">分类列表</view>
+              </view>
+            </view>
+            <view class="item">
+              <view class="content">
+                <image class="img" src="../../images/product.png" mode="scaleToFill" lazy-load="true" />
+                <view class="text">分类列表</view>
+              </view>
+            </view>
+            <view class="item">
+              <view class="content">
+                <image class="img" src="../../images/product.png" mode="scaleToFill" lazy-load="true" />
+                <view class="text">分类列表</view>
+              </view>
+            </view>
+            <view class="item">
+              <view class="content">
+                <image class="img" src="../../images/product.png" mode="scaleToFill" lazy-load="true" />
+                <view class="text">分类列表</view>
+              </view>
+            </view>
+          </scroll-view>
+          <view class="scroll-bar">
+            <view class="scroll-bar-active" animation="{{tranAnimation}}"></view>
+          </view>
+        </view>
+        <view class="seckill">
+          <view class="home-seckill">
+            <view class="seckill-header">
+              <view class="left">
+                <view class="icon">
+                  <image class="img" src="../../images/seckill.png" mode="aspectFill" lazy-load="true" />
+                </view>
+                <view class="tag">
+                  <view class="title">{{activeData.status_text}}</view>
+                  <view class="time">
+                    <block wx:if="{{activeData.status===0}}">
+                      <count-down end="{{activeData.start_time}}" format="h:m:s" bindend="countDownEndHandle" clear-timer="{{clearTimer}}"></count-down>
+                    </block>
+                    <block wx:elif="{{activeData.status===1}}">
+                      <count-down end="{{activeData.end_time}}" format="h:m:s" bindend="countDownEndHandle" clear-timer="{{clearTimer}}"></count-down>
+                    </block>
+                    <block wx:else>{{activeData.time}}</block>
+                  </view>
+                </view>
+              </view>
+              <view class="more" bindtap="goSalesHandle">
+                <text class="text">查看全部</text>
+                <text class="iconfont icon-dir-right"></text>
+              </view>
+            </view>
+            <view class="seckill-container">
+              <scroll-view class="scroll-seckill" scroll-x="true" enable-flex="{{true}}">
+                <view class="seckill-products">
+                  <block wx:for="{{activeProductList}}" wx:key="index">
+                    <view class="item" data-id="{{item.id}}" bindtap="productTap">
+                      <view class="image-container">
+                        <image class="img" src="../../images/product.png" mode="aspectFill" lazy-load="true" />
+                      </view>
+                      <view class="title text-ellipsis">{{item.name}}</view>
+                      <view class="price">
+                        <view class="unit">￥</view>
+                        <view class="num ff-num">{{item.sales_price}}</view>
+                      </view>
+                      <view class="btn" data-product="{{item.id}}" catchtap="addCartHandle">
+                        加入购物车
+                      </view>
+                    </view>
+                  </block>
+                </view>
+                <view class="seckill-more" wx:if="{{activeCount>3}}">
+                  <view class="text">查看更多</view>
+                  <view class="iconfont icon-dir-right"></view>
+                </view>
+              </scroll-view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="home-bottom">
+        <view class="recommend-container">
+          <recommend list="{{productList}}" bind:updateCart="updateCartHandle" />
+        </view>
+      </view>
+    </pull-refresh>
   </view>
 </view>

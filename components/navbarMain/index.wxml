@@ -1,0 +1,20 @@
+<view class="navbar" style="height:{{navHeight}}px;">
+  <view class="navbar-container" style="top:{{navTop}}px;height:{{menuButtonHeight}}px">
+    <view class="navbar-title" style="color:{{color}}">{{title}}</view>
+    <view class="navbar-image"></view>
+    <view class="navbar-search" style="margin-right:{{navRight}}px">
+      <view class="search-wraper" style="border-radius:{{menuButtonHeight/2}}px;background-color:{{searchColor}}" bindtap="swiperTap">
+        <text class="search-icon iconfont icon-search"></text>
+        <view class="search-text">
+          <swiper vertical="true" circular="true" autoplay="true" interval="2000" duration="1000" display-multiple-items="1" style="height:100%" bindchange="changeHandle">
+            <block wx:for="{{list}}" wx:key="index">
+              <swiper-item>
+                <view class="text">{{item.name}}</view>
+              </swiper-item>
+            </block>
+          </swiper>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

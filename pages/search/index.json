@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "nav-bar":"../../components/navBar",
+    "navbar-search": "../../components/navbarSearch",
+    "loading": "../../components/loading",
+    "pull-refresh":"../../components/pullRefresh/index"
+  }
+}

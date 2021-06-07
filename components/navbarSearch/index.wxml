@@ -1,0 +1,16 @@
+<view class="navbar" style='height:{{navHeight}}px;'>
+  <view class="navbar-container" style="top:{{navTop}}px;height:{{menuButtonHeight}}px">
+    <view class="navbar-action-wrap" style='top:{{navTop}}px;height:{{titleHeight}}px' bindtap="navBack">
+      <view class="iconfont icon-back"></view>
+    </view>
+    <view class="navbar-search" style="margin-right:{{navRight}}px">
+      <view class="search-wraper" style="border-radius:{{menuButtonHeight/2}}px;" bindtap="searchTap">
+        <text class="search-icon iconfont icon-search"></text>
+        <view class="search-text" style="border-radius:{{menuButtonHeight/2-5}}px;">
+          <view class="text">{{search}}</view>
+          <view class="iconfont icon-close"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

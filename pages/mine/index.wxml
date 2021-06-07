@@ -29,10 +29,6 @@
           <view class="base-card mine-order">
             <view class="order-header">
               <view class="text">我的订单</view>
-              <view class="more" data-type="" bindtap="goOrder">
-                <text>全部订单</text>
-                <text class="iconfont icon-dir-right"></text>
-              </view>
             </view>
             <view class="order-container">
               <block wx:for="{{orderTypeList}}" wx:key="index">
@@ -41,6 +37,10 @@
                   <view class="text">{{item.name}}</view>
                 </view>
               </block>
+              <view class="item all" data-type="" bindtap="goOrder">
+                <view class="iconfont icon-home"></view>
+                <view class="text">全部订单</view>
+              </view>
             </view>
           </view>
           <view class="base-card fun-container">

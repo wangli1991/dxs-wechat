@@ -1,4 +1,9 @@
 {
   "component": true,
-  "usingComponents": {}
+  "usingComponents": {
+    "recommend": "../../components/recommend",
+    "pull-refresh":"../../components/pullRefresh/index",
+    "count-down": "../../components/countDown",
+    "navbar-main": "../../components/navbarMain"
+  }
 }

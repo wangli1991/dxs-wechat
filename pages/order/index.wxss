@@ -1,6 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
+  background-color: #f4f5fa;
 }
 .order-header {
   display: flex;
@@ -17,7 +18,7 @@
   line-height: 1;
 }
 .order-header .item.active {
-  color: #07c160;
+  color: #02c521;
 }
 .order-header .item.active::after {
   content: "";
@@ -27,7 +28,7 @@
   left: 50%;
   margin-left: -28rpx;
   bottom: 10rpx;
-  background-color: #07c160;
+  background-color: #02c521;
 }
 .order-container {
   flex: 1;
@@ -68,7 +69,7 @@
   align-items: center;
 }
 .order-container .header .active {
-  color: #07c160;
+  color: #02c521;
 }
 .order-container .header .text .title {
   margin-right: 10rpx;
@@ -159,11 +160,11 @@
   padding: 0 50rpx;
   height: 60rpx;
   font-size: 30rpx;
-  color: #07c160;
+  color: #02c521;
   border-radius: 30rpx;
-  border: 2rpx solid #07c160;
+  border: 2rpx solid #02c521;
 }
 .order-container .btns .btn.active {
-  background-color: #07c160;
+  background-color: #02c521;
   color: #fff;
 }

@@ -1,3 +1,8 @@
 {
-  "usingComponents": {"nav-bar":"../../components/navBar","empty-block":"../../components/emptyBlock","count-down": "../../components/countDown"}
+  "usingComponents": {
+    "nav-bar":"../../components/navBar",
+    "empty-block":"../../components/emptyBlock",
+    "count-down": "../../components/countDown",
+    "pull-refresh":"../../components/pullRefresh/index"
+  }
 }

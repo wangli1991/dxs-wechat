@@ -1,3 +1,6 @@
+.classify-header {
+  background-color: #fff;
+}
 .classify-tips {
   font-size: 30rpx;
   text-align: center;
@@ -10,47 +13,6 @@
   color: #666;
   background-color: #fff;
 }
-.classify-loading {
-  height: 50px;
-  line-height: 50px;
-  font-size: 30rpx;
-  text-align: center;
-}
-.navbar {
-  width: 100%;
-  overflow: hidden;
-  z-index: 10;
-}
-.navbar-container {
-  width: 100%;
-  position: absolute;
-  left: 0;
-  display: flex;
-  align-items: center;
-}
-.navbar-title {
-  color: #333;
-  font-weight: bold;
-}
-
-.navbar-search {
-  flex: 1;
-  height: 100%;
-}
-.search-container {
-  height: 100%;
-  background-color: #f2f2f2;
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-.search-icon {
-  color: #bbb;
-}
-.search-text {
-  color: #999;
-}
-
 .classify-container {
   height: 100%;
   padding-top: 30rpx;
@@ -82,19 +44,19 @@
   line-height: 80rpx;
 }
 .scroll-view-item .iconfont {
-  color: #f00;
+  color: #ff3634;
   margin-right: 5rpx;
   font-size: 26rpx;
 }
 .scroll-view-item.active .text {
-  color: #07c160;
+  color: #02c521;
   font-weight: bold;
 }
 .scroll-view-item.active::after {
   content: "";
   width: 6rpx;
   height: 40rpx;
-  background-color: #07c160;
+  background-color: #02c521;
   position: absolute;
   left: 0;
   top: 50%;
@@ -125,7 +87,7 @@
   color: #636262;
 }
 .classify-content .head .head-item.active .text {
-  color: #f00;
+  color: #ff3634;
   font-weight: bold;
 }
 .classify-content .head .icons {
@@ -144,18 +106,13 @@
   color: #636262;
 }
 .classify-content .head .head-item.active .icons .iconfont.active {
-  color: #07c160;
+  color: #02c521;
 }
 .classify-content .foot {
   flex: 1;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-}
-.classify-content-scroll {
-  width: 100%;
-  height: 100%;
-  position: relative;
 }
 .classify-content .classify-item {
   width: 100%;
@@ -197,14 +154,14 @@
 .classify-content .tag {
   display: inline-block;
   font-size: 20rpx;
-  color: #07c160;
+  color: #02c521;
   line-height: 1;
   padding: 3px;
   background-color: rgba(7, 193, 96, 0.1);
   border-radius: 2rpx;
 }
 .classify-content .tag.discount {
-  color: #f00;
+  color: #ff3634;
   background-color: rgba(255, 0, 0, 0.1);
 }
 .classify-content .buy {
@@ -219,7 +176,7 @@
   align-items: flex-end;
 }
 .classify-content .buy-price .now {
-  color: #f00;
+  color: #ff3634;
   line-height: 1;
   display: flex;
   align-items: flex-end;
@@ -231,7 +188,7 @@
 .classify-content .buy-cart {
   width: 50rpx;
   height: 50rpx;
-  background-color: #07c160;
+  background-color: #02c521;
   color: #fff;
   line-height: 50rpx;
   border-radius: 50%;

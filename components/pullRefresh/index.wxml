@@ -1,0 +1,30 @@
+<!-- 支持下拉刷新-上拉加载的组件 -->
+<scroll-view scroll-y="{{scrollY}}" class="prv-container" lower-threshold="{{lowerThreshold}}" refresher-color="{{refresherColor}}" scroll-top="{{scrollTop}}" refresher-background="{{refresherBackground}}" refresher-enabled="{{refresherEnable}}" bindrefresherrefresh="_onRefresh" refresher-triggered="{{refreshing}}" bindscrolltolower="_onLoadmore" bindrefresherpulling="_onPulling" refresher-default-style="{{refresherType==='circle'?refresherColor:'none'}}" bindrefresherrestore="_onClose" bindscrolltoupper="_onScrollTop" bindscroll="_onScroll" refresher-threshold="{{refresherThreshold}}" scroll-into-view="{{scrollIntoView}}" scroll-with-animation="{{scrollWithAnimation}}">
+		<slot slot="refresher" name="refresher" wx:if="{{refresherType=='custom'}}"></slot>
+		<view slot="refresher" class="prv-pulldown" style="height:{{refresherThreshold}}px;" wx:else>
+				<view wx:if="{{refresherType=='default'}}" style="color:{{refresherColor}}">
+						<block wx:if="{{pullState==0||pullState==1}}">
+								<text class="icon iconfont icon-down" style='transform:rotate({{pullState==0?0:180}}deg);'></text>
+								<text class="text" wx:if="{{pullState==0}}">{{pullText}}</text>
+								<text class="text" wx:if="{{pullState==1}}" space="nbsp">{{releaseText}}</text>
+						</block>
+						<block wx:if="{{pullState==2}}">
+								<view class="prv-loading"></view>
+								<text class="text">{{refreshText}}</text>
+						</block>
+				</view>
+		</view>
+		<slot></slot>
+		<slot name="loader" wx:if="{{loadType=='custom'&&!isEmpty&&showLoading}}"></slot>
+		<view class="prv-loadmore" wx:elif="{{!isEmpty&&showLoading}}">
+				<block wx:if="{{nomore}}">
+						<text class="text">{{nomoreText}}</text>
+				</block>
+				<block wx:else>
+						<view class="prv-loading"></view>
+						<text class="text">{{loadmoreText}}</text>
+				</block>
+		</view>
+</scroll-view>
+<view>{{scrollIntoView}}</view>
+<back-top show="{{showBackTop}}" bind:backtop="_backTopHandle" wx:if="{{backTopEnable}}" />

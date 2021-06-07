@@ -2,12 +2,12 @@
  * @Author: WangLi
  * @Date: 2021-05-11 13:22:17
  * @LastEditors: WangLi
- * @LastEditTime: 2021-05-13 10:00:14
+ * @LastEditTime: 2021-05-28 14:02:36
  */
 Component({
   properties: {
     end: String, // 结束时间
-    callback: String, // 倒计时结束回调
+    end: String, // 倒计时结束回调
     clearTimer: Boolean, // 清除定时器
     format: String, //倒计时类型 h:m:s h:时 m:分 s:秒
   },
@@ -19,14 +19,13 @@ Component({
   },
   methods: {
     init() {
-      const self = this;
+      const $this = this;
       setTimeout(() => {
-        self.getFinalTime.call(self);
+        $this.getFinalTime.call($this);
       }, 1000);
     },
     getFinalTime() {
       const { end, clearTimer, format } = this.data;
-      console.log(end, new Date(end).getTime());
       const endTime = Math.ceil(
         (new Date(end).getTime() - new Date().getTime()) / 1000
       ); // 距离结束时间
@@ -49,14 +48,13 @@ Component({
       this.setData({
         time: time,
       });
-      console.log(time);
     },
     formatNum(n) {
       n = n.toString();
       return n[1] ? n : `0${n}`;
     },
     endFn() {
-      this.triggerEvent("callback", {});
+      this.triggerEvent("end", {});
     },
   },
 });

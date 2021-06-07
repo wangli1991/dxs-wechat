@@ -2,18 +2,41 @@
  * @Author: WangLi
  * @Date: 2021-04-30 05:49:10
  * @LastEditors: WangLi
- * @LastEditTime: 2021-05-13 20:25:20
+ * @LastEditTime: 2021-06-07 13:18:06
  */
 import { getCartCount } from "../../http/api";
 const App = getApp();
 Component({
+  properties: {
+    cartChange: {
+      type: Number,
+    },
+    selected: { type: Number },
+  },
   options: {
     styleIsolation: "shared",
   },
+  observers: {
+    cartChange(value) {
+      this.getCartCount();
+    },
+    count(value) {
+      const { list } = this.data;
+      list[2].info = value ? value : "";
+      this.setData({
+        list,
+      });
+    },
+    selected(value) {
+      this.setData({
+        active: value,
+      });
+    },
+  },
   data: {
-    selected: 0,
+    active: 0,
     color: "#7A7E83",
-    selectedColor: "#07c160",
+    selectedColor: "#02c521",
     list: [
       {
         pagePath: "/pages/home/index",
@@ -32,7 +55,7 @@ Component({
         text: "购物车",
         iconPath: "/images/cart.png",
         selectedIconPath: "/images/cart_active.png",
-        info: 1,
+        info: "",
       },
       {
         pagePath: "/pages/mine/index",
@@ -43,33 +66,21 @@ Component({
     ],
     count: 0,
   },
-  lifetimes: {
-    created: function () {
-      // this.getCartCount();
-    },
-  },
   methods: {
-    onChange(event) {
-      this.setData({ selected: event.detail });
-      this.triggerEvent("change", event.detail);
+    onChange(e) {
+      const index = e.currentTarget.dataset.index;
+      this.setData({ active: index });
+      this.triggerEvent("change", index);
+      wx.setStorageSync("tabbar", index);
     },
-    switchTab: function (e) {
-      const data = e.currentTarget.dataset;
-      const url = data.path;
-      wx.switchTab({ url });
-      console.log(data.index);
-      // this.setData({
-      //   selected: data.index,
-      // });
-    },
-    getCartCount: async function () {
+    async getCartCount() {
       const params = {
         userId: wx.getStorageSync("user"),
       };
       const { code, data, msg } = await getCartCount(params);
       if (code === 200) {
         this.setData({
-          count: data.count,
+          count: data.count < 100 ? data.count : "99+",
         });
       }
     },

@@ -1,1 +1,3 @@
-<view class="loading"></view>
+<view class="loading" wx:if="{{loading}}" style="padding-top:{{navHeight}}px">
+  <view class="iconfont icon-loding"></view>
+</view>

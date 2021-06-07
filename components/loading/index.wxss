@@ -1,1 +1,15 @@
-/* components/loading/index.wxss */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9;
+}
+.loading .iconfont {
+  font-size: 100rpx;
+  color: #02c521;
+}

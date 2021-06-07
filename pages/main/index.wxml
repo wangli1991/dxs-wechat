@@ -1,11 +1,11 @@
 <view class="page-container">
   <view class="main">
-    <home class="main-item" selected="{{selected}}" style="display:{{selected===0?'block':'none'}}" />
-    <classify class="main-item" selected="{{selected}}" style="display:{{selected===1?'block':'none'}}" />
-    <cart class="main-item" selected="{{selected}}" style="display:{{selected===2?'block':'none'}}" />
-    <mine class="main-item" selected="{{selected}}" style="display:{{selected===3?'block':'none'}}" />
+    <home class="main-item" style="display:{{selected===0?'block':'none'}}" selected="{{selected}}" bind:updateCart="updateCartHandle" />
+    <classify class="main-item" style="display:{{selected===1?'block':'none'}}" selected="{{selected}}" classify="{{classify}}" bind:updateCart="updateCartHandle" />
+    <cart class="main-item" style="display:{{selected===2?'block':'none'}}" selected="{{selected}}" cart-change="{{cartChange}}" bind:updateCart="updateCartHandle" bind:tabchange="tabChangeHandle" />
+    <mine class="main-item" style="display:{{selected===3?'block':'none'}}" selected="{{selected}}" bind:updateCart="updateCartHandle" />
   </view>
   <view class="footer">
-    <tab-bar bind:change="onChange" />
+    <tab-bar selected="{{selected}}" cart-change="{{cartChange}}" bind:change="onChange" />
   </view>
 </view>

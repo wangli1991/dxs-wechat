@@ -1,0 +1,62 @@
+<skeleton region="{{region}}"></skeleton>
+<nav-bar pageName="限时抢购" showNav bgColor="#fff" />
+<view style="position:fixed;z-index:-1;opacity:0;">
+  <count-down end="{{todayTime}}" format="h:m:s" bindend="todayEnd" clear-timer="{{clearTimer}}"></count-down>
+</view>
+<view class="container sales skeleton">
+  <view class="sales-header skeleton-header-rect">
+    <block wx:for="{{activeList}}" wx:key="index">
+      <view class="item {{currentActive===index?'active':''}}" data-index="{{index}}" bindtap="activeChangeHandle">
+        <view class="time ff-num">
+          <block wx:if="{{item.type===1}}">
+            <block wx:if="{{item.status===0}}">
+              <count-down end="{{item.start_time}}" format="h:m:s" bindend="countDownEndHandle" clear-timer="{{clearTimer}}"></count-down>
+            </block>
+            <block wx:elif="{{item.status===1}}">
+              <count-down end="{{item.end_time}}" format="h:m:s" bindend="countDownEndHandle" clear-timer="{{clearTimer}}"></count-down>
+            </block>
+            <block wx:else>{{item.time}}</block>
+          </block>
+          <block wx:else>明天{{item.time}}</block>
+        </view>
+        <view class="text">{{item.status_text}}</view>
+      </view>
+    </block>
+  </view>
+  <view class="product-container">
+    <pull-refresh class="pull-refresh" refresher-type="circle" refresher-color="white" refresher-background="#ff5746" bindrefresherrefresh="refreshHandle" bindrefresherrestore="restoreHandle" refreshing="{{isRefreshing}}" backTopEnable="{{true}}" bindscrolltolower="scrolltolowerHandle" scroll-top="{{scrollTop}}" nomore="{{!loadMore}}" loadmoreText="{{loadMoreText}}">
+      <view class="product-wrapper">
+        <block wx:for="{{productList}}" wx:key="index">
+          <view class="item base-card skeleton-list-rect" data-id="{{item.id}}" bindtap="productTap">
+            <view class="img-container">
+              <image class="img" src="../../images/product.png" mode="aspectFit" lazy-load="true" />
+            </view>
+            <view class="content">
+              <view class="header app-fz30">
+                <view class="title">{{item.name}}</view>
+                <view class="tag discount">
+                  {{item.full_reduction_count}}件{{item.full_reduction_cost}}元
+                </view>
+              </view>
+              <view class="footer">
+                <view class="tag">{{item.discount}}折优惠</view>
+                <view class="buy">
+                  <view class="buy-price">
+                    <text class="now app-fz30">
+                      <text class="unit ff-num app-fz22">￥</text>
+                      <text class="ff-num">{{item.sales_price}}</text>
+                    </text>
+                    <text class="old ff-num app-fz20 app-line-through">￥{{item.market_price}}</text>
+                  </view>
+                  <view class="btn" data-product="{{item.id}}" catchtap="addCartHandle" wx:if="{{activeType===1}}">
+                    加入购物车
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </pull-refresh>
+  </view>
+</view>
